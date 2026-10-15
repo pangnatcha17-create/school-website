@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>เว็บไซต์โรงเรียนของฉัน</title>
+  <title>เว็บไซต์โรงเรียนของเรา</title>
+
   <style>
     * {
       box-sizing: border-box;
@@ -11,97 +12,240 @@
 
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f2f6fc;
-      color: #243247;
+      font-family: Tahoma, Arial, sans-serif;
+      color: #243047;
+      background: #f5f8ff;
+      line-height: 1.7;
     }
 
     header {
-      background: #174a8b;
-      color: white;
-      text-align: center;
-      padding: 45px 20px;
+      background: white;
+      padding: 16px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      box-shadow: 0 2px 12px #17365d12;
     }
 
-    header h1 {
-      margin: 0 0 12px;
+    .logo {
+      font-size: 21px;
+      font-weight: bold;
+      color: #174ea6;
     }
 
     nav {
-      background: #103665;
-      padding: 16px;
-      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
     }
 
     nav a {
-      color: white;
       text-decoration: none;
-      margin: 0 12px;
+      color: #243047;
+      font-size: 14px;
     }
 
-    main {
-      max-width: 1000px;
-      margin: 30px auto;
-      padding: 0 18px;
+    nav a:hover {
+      color: #1769d2;
+    }
+
+    .hero {
+      padding: 75px 8%;
+      text-align: center;
+      color: white;
+      background: linear-gradient(135deg, #174ea6, #458de8);
+    }
+
+    .hero .tag {
+      display: inline-block;
+      background: #ffffff25;
+      padding: 5px 16px;
+      border-radius: 30px;
+      font-size: 14px;
+    }
+
+    .hero h1 {
+      font-size: clamp(30px, 5vw, 48px);
+      margin: 18px 0 10px;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: 0 auto 25px;
+    }
+
+    .button {
+      display: inline-block;
+      background: white;
+      color: #174ea6;
+      padding: 10px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
     }
 
     section {
-      background: white;
-      padding: 25px;
-      margin-bottom: 20px;
-      border-radius: 12px;
+      padding: 45px 8%;
     }
 
-    .welcome {
+    .section-title {
       text-align: center;
-      padding: 40px 25px;
+      margin-bottom: 28px;
+    }
+
+    .section-title h2 {
+      color: #174ea6;
+      margin-bottom: 5px;
+    }
+
+    .section-title p {
+      color: #68758a;
+      margin-top: 0;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: 0 4px 18px #17365d0d;
+    }
+
+    .card .emoji {
+      font-size: 32px;
+    }
+
+    .card h3 {
+      color: #174ea6;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      color: #657086;
+      font-size: 14px;
+    }
+
+    .about {
+      background: white;
+      text-align: center;
+    }
+
+    .about p {
+      max-width: 750px;
+      margin: auto;
     }
 
     footer {
-      background: #174a8b;
+      background: #12366f;
       color: white;
       text-align: center;
-      padding: 22px;
+      padding: 25px 15px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        justify-content: center;
+      }
+
+      nav {
+        justify-content: center;
+        gap: 12px;
+      }
+
+      .hero {
+        padding: 55px 6%;
+      }
+
+      section {
+        padding: 35px 6%;
+      }
     }
   </style>
 </head>
 
 <body>
+
   <header>
-    <h1>โรงเรียนของฉัน</h1>
-    <p>มุ่งมั่นพัฒนาความรู้ คู่คุณธรรม</p>
+    <div class="logo">🏫 โรงเรียนของเรา</div>
+
+    <nav>
+      <a href="#home">หน้าแรก</a>
+      <a href="#news">ข่าวประชาสัมพันธ์</a>
+      <a href="#about">เกี่ยวกับโรงเรียน</a>
+      <a href="#contact">ติดต่อเรา</a>
+    </nav>
   </header>
 
-  <nav>
-    <a href="#about">เกี่ยวกับเรา</a>
-    <a href="#news">ข่าวประชาสัมพันธ์</a>
-    <a href="#contact">ติดต่อเรา</a>
-  </nav>
-
   <main>
-    <section class="welcome">
-      <h2>ยินดีต้อนรับสู่เว็บไซต์โรงเรียน</h2>
-      <p>แหล่งเรียนรู้ ข่าวสาร และกิจกรรมสำหรับนักเรียน ครู และผู้ปกครอง</p>
-    </section>
+    <section class="hero" id="home">
+      <span class="tag">ยินดีต้อนรับสู่เว็บไซต์โรงเรียน</span>
 
-    <section id="about">
-      <h2>เกี่ยวกับโรงเรียน</h2>
-      <p>เพิ่มประวัติ วิสัยทัศน์ และพันธกิจของโรงเรียนได้ที่นี่</p>
+      <h1>เรียนรู้ ก้าวไกล<br>สร้างอนาคตไปด้วยกัน</h1>
+
+      <p>
+        มุ่งพัฒนาผู้เรียนให้มีความรู้ คู่คุณธรรม
+        มีทักษะการเรียนรู้ และพร้อมเติบโตในโลกยุคดิจิทัล
+      </p>
+
+      <a class="button" href="#about">รู้จักโรงเรียนของเรา</a>
     </section>
 
     <section id="news">
-      <h2>ข่าวประชาสัมพันธ์</h2>
-      <p>ติดตามข่าวสารและกิจกรรมล่าสุดของโรงเรียนได้ที่นี่</p>
+      <div class="section-title">
+        <h2>ข่าวประชาสัมพันธ์</h2>
+        <p>ติดตามข่าวสารและกิจกรรมของโรงเรียน</p>
+      </div>
+
+      <div class="cards">
+        <article class="card">
+          <div class="emoji">📢</div>
+          <h3>ประกาศจากโรงเรียน</h3>
+          <p>พื้นที่สำหรับแจ้งข่าวสาร ประกาศ และกำหนดการสำคัญ</p>
+        </article>
+
+        <article class="card">
+          <div class="emoji">🎨</div>
+          <h3>กิจกรรมการเรียนรู้</h3>
+          <p>รวบรวมกิจกรรมและผลงานของนักเรียนในโรงเรียน</p>
+        </article>
+
+        <article class="card">
+          <div class="emoji">🏆</div>
+          <h3>ผลงานและความภาคภูมิใจ</h3>
+          <p>นำเสนอความสามารถและความสำเร็จของนักเรียนและครู</p>
+        </article>
+      </div>
     </section>
 
-    <section id="contact">
-      <h2>ติดต่อเรา</h2>
-      <p>เพิ่มที่อยู่และช่องทางติดต่อของโรงเรียนได้ที่นี่</p>
+    <section class="about" id="about">
+      <div class="section-title">
+        <h2>เกี่ยวกับโรงเรียน</h2>
+      </div>
+
+      <p>
+        โรงเรียนของเราให้ความสำคัญกับการเรียนรู้ที่มีคุณภาพ
+        ส่งเสริมคุณธรรม ความคิดสร้างสรรค์ และการใช้เทคโนโลยี
+        เพื่อพัฒนาผู้เรียนให้มีความพร้อมสำหรับอนาคต
+      </p>
     </section>
   </main>
 
-  <footer>
-    <p>© 2026 เว็บไซต์โรงเรียนของฉัน</p>
+  <footer id="contact">
+    <p>โรงเรียนของเรา</p>
+    <p>ที่อยู่โรงเรียน | โทรศัพท์ | อีเมล</p>
+    <p>© 2026 เว็บไซต์โรงเรียนของเรา</p>
   </footer>
+
 </body>
 </html>
+ 
+
+   
