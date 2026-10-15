@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>โรงเรียนปัญญาธารวิทยา</title>
+
+  <title>โรงเรียนปัญญาธาราวิทยา</title>
+  <meta name="description" content="เว็บไซต์โรงเรียนปัญญาธาราวิทยา ข่าวประชาสัมพันธ์ กิจกรรม และข้อมูลติดต่อ">
 
   <style>
     * {
@@ -12,127 +14,168 @@
 
     html {
       scroll-behavior: smooth;
+      scroll-padding-top: 85px;
     }
 
     body {
       margin: 0;
       font-family: Tahoma, Arial, sans-serif;
-      color: #24344d;
-      background: #f4f7fc;
+      color: #203654;
+      background: #f5f8fe;
       line-height: 1.7;
     }
 
-    /* เมนูด้านบน */
-    header {
-      background: white;
-      padding: 15px 7%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 15px;
-      box-shadow: 0 3px 15px #17365d12;
+    a {
+      color: inherit;
     }
 
-    .logo {
-      color: #174ea6;
-      font-size: 21px;
+    .container {
+      width: min(1180px, 90%);
+      margin: auto;
+    }
+
+    /* ส่วนหัวและเมนู */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #ffffff;
+      box-shadow: 0 3px 18px #163a7012;
+    }
+
+    .header-inner {
+      min-height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #1253a4;
       font-weight: bold;
+      font-size: 20px;
+    }
+
+    .brand-logo {
+      width: 52px;
+      height: 52px;
+      border: 2px solid #1c65bd;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+
+    .brand small {
+      display: block;
+      font-size: 11px;
+      color: #536982;
+      font-weight: normal;
     }
 
     nav {
       display: flex;
       flex-wrap: wrap;
-      gap: 22px;
+      gap: 20px;
     }
 
     nav a {
-      color: #263750;
       text-decoration: none;
       font-size: 14px;
       font-weight: bold;
+      color: #334762;
     }
 
     nav a:hover {
-      color: #2878df;
+      color: #1670d5;
     }
 
-    /* ภาพปกหน้าแรก */
+    /* ภาพปก */
     .hero {
-      min-height: 420px;
-      padding: 75px 8%;
+      min-height: 440px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      text-align: center;
       color: white;
       background:
-        linear-gradient(#082b60bb, #082b60bb),
+        linear-gradient(90deg, #06377eeF 0%, #0757a9c9 48%, #0757a91c 100%),
         url("https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1800&q=85")
-    center / cover no-repeat;
         center / cover no-repeat;
     }
 
     .hero-content {
-      max-width: 760px;
+      padding-top: 65px;
+      padding-bottom: 65px;
+      max-width: 680px;
     }
 
-    .tag {
+    .hero-label {
       display: inline-block;
-      padding: 5px 16px;
-      border: 1px solid #ffffff80;
+      border: 1px solid #ffffff99;
       border-radius: 30px;
-      font-size: 14px;
+      padding: 5px 15px;
+      font-size: 13px;
     }
 
     .hero h1 {
       font-size: clamp(30px, 5vw, 48px);
       line-height: 1.35;
-      margin: 20px 0 12px;
+      margin: 18px 0 10px;
+    }
+
+    .hero .slogan {
+      font-size: clamp(18px, 2.5vw, 25px);
+      font-weight: bold;
+      margin: 0 0 12px;
     }
 
     .hero p {
-      font-size: 17px;
-      margin-bottom: 28px;
+      margin-bottom: 25px;
     }
 
     .button {
       display: inline-block;
-      padding: 11px 25px;
-      background: white;
-      color: #174ea6;
-      border-radius: 8px;
       text-decoration: none;
+      background: white;
+      color: #1453a0;
+      padding: 11px 23px;
+      border-radius: 30px;
       font-weight: bold;
+      transition: 0.2s;
     }
 
     .button:hover {
-      background: #e8f1ff;
+      background: #e6f0ff;
+      transform: translateY(-2px);
     }
 
-    /* ส่วนเนื้อหาทั่วไป */
+    /* หัวข้อแต่ละส่วน */
     section {
-      padding: 55px 8%;
-      scroll-margin-top: 20px;
+      padding: 60px 0;
     }
 
     .section-heading {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 32px;
     }
 
     .section-heading h2 {
-      color: #174ea6;
-      font-size: 28px;
-      margin-bottom: 5px;
+      color: #1453a0;
+      font-size: 29px;
+      margin: 0 0 5px;
     }
 
     .section-heading p {
-      color: #68778c;
-      margin-top: 0;
+      color: #687b93;
+      margin: 0;
     }
 
-    /* การ์ดข่าว */
+    /* ข่าวประชาสัมพันธ์ */
     .news-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -141,140 +184,219 @@
 
     .news-card {
       background: white;
-      border-radius: 14px;
+      border: 1px solid #e5edf8;
+      border-radius: 15px;
       overflow: hidden;
-      box-shadow: 0 5px 20px #183b6b12;
-      transition: transform 0.2s;
+      box-shadow: 0 7px 25px #173d7010;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
     .news-card:hover {
       transform: translateY(-4px);
+      box-shadow: 0 12px 28px #173d7018;
     }
 
-    .news-image {
-      height: 175px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #dceaff, #a9ccff);
-      font-size: 55px;
+    .news-card img {
+      display: block;
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      background: #dbe9fa;
     }
 
     .news-content {
       padding: 20px;
     }
 
-    .news-label {
-      color: #2878df;
+    .news-tag {
+      display: inline-block;
+      background: #e7f1ff;
+      color: #1558a7;
+      padding: 3px 10px;
+      border-radius: 20px;
       font-size: 12px;
       font-weight: bold;
     }
 
     .news-content h3 {
-      margin: 8px 0;
-      color: #174ea6;
+      color: #164b91;
       font-size: 18px;
+      margin: 10px 0 5px;
     }
 
     .news-content p {
-      color: #68778c;
+      color: #63748a;
       font-size: 14px;
-      margin-bottom: 0;
+      margin: 0;
+    }
+
+    .news-date {
+      font-size: 12px;
+      color: #7b8ca2;
+      margin-bottom: 8px;
     }
 
     /* เกี่ยวกับโรงเรียน */
     .about {
       background: white;
-      text-align: center;
     }
 
-    .about p {
-      max-width: 760px;
+    .about-box {
+      max-width: 850px;
       margin: auto;
+      text-align: center;
     }
 
-    .contact {
-      background: #eaf2ff;
-      text-align: center;
-      <section class="contact" id="contact">
-  <div class="section-heading">
-    <h2>ติดต่อโรงเรียน</h2>
-    <p>โรงเรียนปัญญาธาราวิทยา</p>
-    <p>“สร้างปัญญา พัฒนาความคิด ก้าวทันโลกอนาคต”</p>
-  </div>
-
-  <div class="news-grid">
-    <article class="news-card">
-      <div class="news-content">
-        <h3>📍 ที่อยู่</h3>
-        <p>
-          99 หมู่ 5 แขวงลาดกระบัง
-          เขตลาดกระบัง กรุงเทพมหานคร 10520
-        </p>
-      </div>
-    </article>
-
-    <article class="news-card">
-      <div class="news-content">
-        <h3>📞 โทรศัพท์</h3>
-        <p>
-          <a href="tel:020000000">02-000-0000</a>
-        </p>
-      </div>
-    </article>
-
-    <article class="news-card">
-      <div class="news-content">
-        <h3>✉️ อีเมล</h3>
-        <p>
-          <a href="mailto:info@panyathara.example">
-            info@panyathara.example
-          </a>
-        </p>
-      </div>
-    </article>
-  </div>
-</section>
+    .about-box p {
+      color: #53677f;
     }
 
-    footer {
-      background: #12366f;
-      color: white;
-      text-align: center;
-      padding: 25px 15px;
+    .values {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 30px;
+    }
+
+    .value-item {
+      background: #f0f6ff;
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .value-item .emoji {
+      font-size: 32px;
+    }
+
+    .value-item h3 {
+      color: #1558a7;
+      margin: 8px 0 4px;
+      font-size: 17px;
+    }
+
+    .value-item p {
+      margin: 0;
       font-size: 14px;
     }
 
-    footer p {
-      margin: 5px;
+    /* ติดต่อโรงเรียน */
+    .contact {
+      background: #eaf3ff;
     }
 
-    /* รองรับโทรศัพท์ */
-    @media (max-width: 750px) {
-      header {
-        justify-content: center;
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .contact-card {
+      background: white;
+      padding: 25px 20px;
+      border-radius: 14px;
+      text-align: center;
+      overflow-wrap: anywhere;
+      box-shadow: 0 5px 20px #17447a0c;
+    }
+
+    .contact-icon {
+      font-size: 30px;
+    }
+
+    .contact-card h3 {
+      color: #1453a0;
+      margin: 8px 0;
+      font-size: 18px;
+    }
+
+    .contact-card p {
+      font-size: 14px;
+      margin: 0;
+      color: #526780;
+    }
+
+    .contact-card a {
+      color: #1453a0;
+      overflow-wrap: anywhere;
+    }
+
+    .sample-note {
+      text-align: center;
+      color: #60758e;
+      font-size: 12px;
+      margin-top: 25px;
+    }
+
+    footer {
+      background: #0c3978;
+      color: white;
+      text-align: center;
+      padding: 25px 15px;
+      font-size: 13px;
+    }
+
+    footer p {
+      margin: 4px;
+    }
+
+    /* รองรับมือถือและแท็บเล็ต */
+    @media (max-width: 800px) {
+      .header-inner {
+        padding: 14px 0;
+        flex-direction: column;
       }
 
       nav {
         justify-content: center;
-        gap: 12px 18px;
+        gap: 10px 16px;
       }
 
       .news-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .hero {
+        min-height: 400px;
+        background-position: 60% center;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .brand {
+        font-size: 17px;
+      }
+
+      .brand-logo {
+        width: 45px;
+        height: 45px;
+      }
+
+      nav a {
+        font-size: 12px;
+      }
+
+      .news-grid,
+      .values,
+      .contact-grid {
         grid-template-columns: 1fr;
       }
 
       .hero {
-        min-height: 360px;
-        padding: 55px 6%;
+        min-height: 390px;
+        background-position: center;
       }
 
-      .hero p {
-        font-size: 15px;
+      .hero-content {
+        padding-top: 45px;
+        padding-bottom: 45px;
       }
 
       section {
-        padding: 40px 6%;
+        padding: 42px 0;
+      }
+
+      .section-heading h2 {
+        font-size: 25px;
       }
     }
   </style>
@@ -282,165 +404,93 @@
 
 <body>
 
+  <!-- ส่วนหัวเว็บไซต์ -->
   <header>
-    <div class="logo">โรงเรียนปัญญาธารวิทยา</div>
+    <div class="container header-inner">
+      <a class="brand" href="#home">
+        <span class="brand-logo">📘</span>
+        <span>
+          โรงเรียนปัญญาธาราวิทยา
+          <small>สร้างปัญญา พัฒนาความคิด ก้าวทันโลกอนาคต</small>
+        </span>
+      </a>
 
-    <nav>
-      <a href="#home">หน้าแรก</a>
-      <a href="#news">ข่าวประชาสัมพันธ์</a>
-      <a href="#about">เกี่ยวกับโรงเรียน</a>
-      <a href="#contact">ติดต่อเรา</a>
-    </nav>
+      <nav aria-label="เมนูหลัก">
+        <a href="#home">หน้าแรก</a>
+        <a href="#about">เกี่ยวกับโรงเรียน</a>
+        <a href="#news">ข่าวสาร</a>
+        <a href="#activities">กิจกรรม</a>
+        <a href="#contact">ติดต่อเรา</a>
+      </nav>
+    </div>
   </header>
 
   <main>
+    <!-- ภาพปกหน้าแรก -->
     <section class="hero" id="home">
-      <div class="hero-content">
-        <span class="tag">ยินดีต้อนรับสู่เว็บไซต์โรงเรียน</span>
+      <div class="container">
+        <div class="hero-content">
+          <span class="hero-label">ยินดีต้อนรับสู่เว็บไซต์โรงเรียน</span>
 
-        <h1>โรงเรียนปัญญาธารวิทยา<br>พื้นที่แห่งการเรียนรู้</h1>
+          <h1>โรงเรียนปัญญาธาราวิทยา</h1>
 
-        <p>
-          มุ่งพัฒนาผู้เรียนให้มีความรู้ คู่คุณธรรม
-          ส่งเสริมความคิดสร้างสรรค์และทักษะในศตวรรษที่ 21
-        </p>
+          <p class="slogan">
+            สร้างปัญญา พัฒนาความคิด<br>
+            ก้าวทันโลกอนาคต
+          </p>
 
-        <a class="button" href="#about">รู้จักโรงเรียนของเรา</a>
+          <p>
+            มุ่งพัฒนาผู้เรียนให้มีความรู้ คู่คุณธรรม
+            และทักษะที่จำเป็นสำหรับโลกยุคใหม่
+          </p>
+
+          <a class="button" href="#about">รู้จักโรงเรียนของเรา →</a>
+        </div>
       </div>
     </section>
 
+    <!-- ข่าวประชาสัมพันธ์ -->
     <section id="news">
-      <div class="section-heading">
-        <h2>ข่าวประชาสัมพันธ์</h2>
-        <p>ข่าวสาร กิจกรรม และเรื่องราวดี ๆ จากโรงเรียน</p>
-      </div>
+      <div class="container">
+        <div class="section-heading">
+          <h2>ข่าวประชาสัมพันธ์</h2>
+          <p>ติดตามข่าวสารและเรื่องราวจากโรงเรียน</p>
+        </div>
 
-      <div class="news-grid">
-        <article class="news-card">
-          <div class="news-image">📢</div>
-          <div class="news-content">
-            <span class="news-label">ประกาศ</span>
-            <h3>ข่าวสารจากโรงเรียน</h3>
-            <p>พื้นที่สำหรับเพิ่มประกาศสำคัญและแจ้งข่าวสารให้ผู้ปกครองทราบ</p>
-          </div>
-        </article>
+        <div class="news-grid">
+          <article class="news-card">
+            <img
+              src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80"
+              alt="บรรยากาศการเรียนรู้ในห้องเรียน"
+              loading="lazy"
+            >
+            <div class="news-content">
+              <span class="news-tag">ประชาสัมพันธ์</span>
+              <h3>ข่าวสารจากโรงเรียน</h3>
+              <div class="news-date">ข่าวประจำโรงเรียน</div>
+              <p>
+                พื้นที่สำหรับประกาศข่าวสำคัญ
+                และแจ้งข้อมูลข่าวสารให้ผู้ปกครองทราบ
+              </p>
+            </div>
+          </article>
 
-        <article class="news-card">
-          <div class="news-image">🎓</div>
-          <div class="news-content">
-            <span class="news-label">กิจกรรม</span>
-            <h3>กิจกรรมการเรียนรู้</h3>
-            <p>นำเสนอภาพกิจกรรมการเรียนการสอนและประสบการณ์ของนักเรียน</p>
-          </div>
-        </article>
+          <article class="news-card" id="activities">
+            <img
+              src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=800&q=80"
+              alt="นักเรียนในกิจกรรมการศึกษา"
+              loading="lazy"
+            >
+            <div class="news-content">
+              <span class="news-tag">กิจกรรม</span>
+              <h3>กิจกรรมการเรียนรู้</h3>
+              <div class="news-date">กิจกรรมของโรงเรียน</div>
+              <p>
+                นำเสนอการเรียนการสอน กิจกรรมเสริมทักษะ
+                และประสบการณ์ของนักเรียน
+              </p>
+            </div>
+          </article>
 
-        <article class="news-card">
-          <div class="news-image">🏆</div>
-          <div class="news-content">
-            <span class="news-label">ผลงาน</span>
-            <h3>ความภาคภูมิใจของเรา</h3>
-            <p>แบ่งปันผลงานและความสำเร็จของนักเรียนและบุคลากรในโรงเรียน</p>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="about" id="about">
-      <div class="section-heading">
-        <h2>เกี่ยวกับโรงเรียน</h2>
-        <p>เรียนรู้ เติบโต และก้าวไปด้วยกัน</p>
-      </div>
-
-      <p>
-        โรงเรียนของเราเป็นพื้นที่แห่งการเรียนรู้ที่มุ่งส่งเสริม
-        ความรู้ คุณธรรม และทักษะชีวิต พร้อมสนับสนุนให้นักเรียน
-        พัฒนาศักยภาพของตนเองอย่างเต็มที่
-      </p>
-    </section>
-
-    <section class="contact" id="contact">
-  <div class="section-heading">
-    <h2>ติดต่อโรงเรียน</h2>
-    <p>โรงเรียนปัญญาธาราวิทยา</p>
-    <p>“สร้างปัญญา พัฒนาความคิด ก้าวทันโลกอนาคต”</p>
-  </div>
-
-  <div class="news-grid">
-    <article class="news-card">
-      <div class="news-content">
-        <h3>📍 ที่อยู่</h3>
-        <p>
-          99 หมู่ 5 แขวงลาดกระบัง
-          เขตลาดกระบัง กรุงเทพมหานคร 10520
-        </p>
-      </div>
-    </article>
-
-    <article class="news-card">
-      <div class="news-content">
-        <h3>📞 โทรศัพท์</h3>
-        <p>
-          <a href="tel:020000000">02-000-0000</a>
-        </p>
-      </div>
-    </article>
-
-    <article class="news-card">
-      <div class="news-content">
-        <h3>✉️ อีเมล</h3>
-        <p>
-          <a href="mailto:info@panyathara.example">
-            info@panyathara.example
-          </a>
-        </p>
-      </div>
-    </article>
-  </div>
-</section>
-
-  <footer>
-    <p><strong>โรงเรียนปัญญาธารวิทยา</strong></p>
-    <p>เว็บไซต์เพื่อประชาสัมพันธ์ข้อมูลข่าวสารของโรงเรียน</p>
-    <p>© 2026 โรงเรียนปัญญาธารวิทยา</p>
-  </footer>
-<section class="contact" id="contact"
-
-  style="padding: 45px 8%; background: #eaf2ff; text-align: center;">
-
-  <h2 style="color: #174ea6;">ติดต่อโรงเรียน</h2>
-
-  <h3>โรงเรียนปัญญาธาราวิทยา</h3>
-
-  <p>คำขวัญ: สร้างปัญญา พัฒนาความคิด ก้าวทันโลกอนาคต</p>
-
-  <p>
-
-    📍 ที่อยู่: 99 หมู่ 5 แขวงลาดกระบัง
-
-    เขตลาดกระบัง กรุงเทพมหานคร 10520
-
-  </p>
-
-  <p>
-
-    📞 โทรศัพท์: 02-000-0000
-
-  </p>
-
-  <p>
-
-    ✉️ อีเมล: info@panyathara.example
-
-  </p>
-
-  <p style="font-size: 13px; color: #64748b;">
-
-    ข้อมูลติดต่อข้างต้นเป็นข้อมูลสมมติสำหรับเว็บไซต์ตัวอย่าง
-
-  </p>
-
-</section>
-
-</body>
-</html>
-   
+          <article class="news-card">
+            <im
