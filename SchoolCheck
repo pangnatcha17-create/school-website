@@ -1,942 +1,241 @@
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SchoolCheck | ระบบเช็กชื่อนักเรียน</title>
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ระบบเช็กชื่อนักเรียนออนไลน์</title>
 <style>
-:root {
-  --primary: #4f46e5;
-  --primary-dark: #3730a3;
-  --bg: #f4f6fc;
-  --text: #1e293b;
-  --muted: #64748b;
-  --border: #e2e8f0;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: Tahoma, Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-}
-
-button, input, select {
-  font: inherit;
-}
-
-button {
-  cursor: pointer;
-  border: none;
-  border-radius: 10px;
-  padding: 11px 16px;
-  background: var(--primary);
-  color: white;
-  font-weight: bold;
-}
-
-button:hover {
-  opacity: .9;
-}
-
-button:focus-visible,
-input:focus-visible,
-select:focus-visible {
-  outline: 3px solid #a5b4fc;
-  outline-offset: 2px;
-}
-
-.btn-light {
-  background: #e0e7ff;
-  color: #3730a3;
-}
-
-.btn-danger {
-  background: #fee2e2;
-  color: #b91c1c;
-}
-
-.btn-small {
-  padding: 8px 10px;
-  font-size: 12px;
-}
-
-header {
-  background: linear-gradient(120deg, #1e3a8a, #6366f1);
-  color: white;
-  padding: 35px 6%;
-}
-
-.header-inner {
-  max-width: 1150px;
-  margin: auto;
-}
-
-header h1 {
-  font-size: 32px;
-  margin: 0 0 10px;
-}
-
-header p {
-  margin: 0;
-  opacity: .9;
-}
-
-main {
-  max-width: 1150px;
-  margin: 25px auto;
-  padding: 0 16px;
-}
-
-.card {
-  background: white;
-  padding: 24px;
-  border-radius: 18px;
-  margin-bottom: 20px;
-  box-shadow: 0 5px 25px rgba(30,41,59,.06);
-}
-
-h2 {
-  font-size: 20px;
-  margin: 0 0 18px;
-}
-
-.controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  align-items: end;
-}
-
-.field {
-  flex: 1;
-  min-width: 170px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-label {
-  font-size: 13px;
-  font-weight: bold;
-}
-
-input, select {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #cbd5e1;
-  border-radius: 10px;
-  background: white;
-}
-
-.stats {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 12px;
-}
-
-.stat {
-  background: #f1f5f9;
-  border-radius: 14px;
-  padding: 20px;
-}
-
-.stat strong {
-  display: block;
-  font-size: 30px;
-  margin-bottom: 6px;
-}
-
-.stat span {
-  font-size: 13px;
-  color: var(--muted);
-}
-
-.stat.total {
-  background: #e0e7ff;
-}
-
-.stat.present {
-  background: #dcfce7;
-}
-
-.stat.late {
-  background: #fef3c7;
-}
-
-.stat.absent {
-  background: #fee2e2;
-}
-
-.stat.leave {
-  background: #e0f2fe;
-}
-
-.flex {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.table-wrap {
-  overflow-x: auto;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th, td {
-  text-align: left;
-  padding: 14px 10px;
-  border-bottom: 1px solid var(--border);
-}
-
-th {
-  background: #f8fafc;
-  color: #475569;
-  font-size: 13px;
-}
-
-.status-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-}
-
-.status-buttons button {
-  background: #e2e8f0;
-  color: #475569;
-  padding: 8px 10px;
-  font-size: 12px;
-}
-
-.status-buttons .selected-present {
-  background: #16a34a;
-  color: white;
-}
-
-.status-buttons .selected-late {
-  background: #d97706;
-  color: white;
-}
-
-.status-buttons .selected-absent {
-  background: #dc2626;
-  color: white;
-}
-
-.status-buttons .selected-leave {
-  background: #2563eb;
-  color: white;
-}
-
-.note {
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.7;
-}
-
-.empty {
-  padding: 25px;
-  text-align: center;
-  color: var(--muted);
-}
-
-.hidden {
-  display: none;
-}
-
-footer {
-  text-align: center;
-  color: #94a3b8;
-  padding: 25px;
-  font-size: 13px;
-}
-
-@media(max-width: 750px) {
-  .stats {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .card {
-    padding: 16px;
-  }
-
-  header h1 {
-    font-size: 25px;
-  }
-
-  th, td {
-    padding: 10px 6px;
-    font-size: 12px;
-  }
-}
+:root{font-family:system-ui,'Tahoma',sans-serif;color:#18243a;background:#f3f6fb}*{box-sizing:border-box}body{margin:0}header{background:linear-gradient(110deg,#193b77,#387bd6);color:white;padding:28px max(20px,calc((100vw - 1100px)/2))}h1{margin:0 0 6px;font-size:26px}header p{margin:0;opacity:.85}main{max-width:1100px;margin:24px auto;padding:0 16px}.panel{background:white;border:1px solid #e2e9f3;border-radius:16px;padding:20px;margin-bottom:18px;box-shadow:0 6px 24px #1d3c7010}.toolbar{display:flex;flex-wrap:wrap;gap:12px;align-items:end}.field{display:flex;flex-direction:column;gap:5px;flex:1;min-width:155px}label{font-weight:650;font-size:13px}input,select,button{font:inherit;border-radius:9px;padding:10px 12px;border:1px solid #ccd7e5}button{cursor:pointer;border:0;background:#2563eb;color:white;font-weight:650}button.secondary{background:#e9f0fc;color:#214d92}button.danger{background:#fee2e2;color:#b91c1c}button:disabled{opacity:.55;cursor:not-allowed}.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.stat{border-radius:12px;padding:15px;background:#f1f5fd}.stat strong{font-size:25px;display:block}.stat span{font-size:12px;color:#50617b}.row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}h2{font-size:19px;margin:0 0 15px}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:12px 10px;border-bottom:1px solid #e8edf5}th{font-size:13px;color:#52627c;background:#f8faff}.scroll{overflow-x:auto}.status{display:flex;gap:5px;flex-wrap:wrap}.status button{padding:7px 10px;background:#e9eef7;color:#40506b;font-size:12px}.status button.active.present{background:#dcfce7;color:#166534}.status button.active.late{background:#fef3c7;color:#92400e}.status button.active.absent{background:#fee2e2;color:#991b1b}.status button.active.leave{background:#e0e7ff;color:#3730a3}.muted{color:#64748b;font-size:13px}.hide{display:none}footer{text-align:center;padding:16px;color:#718096;font-size:12px}@media(max-width:650px){.stats{grid-template-columns:repeat(2,1fr)}.panel{padding:14px}th,td{padding:9px 6px;font-size:13px}}
 </style>
 </head>
-
 <body>
-
 <header>
-  <div class="header-inner">
-    <h1>📋 SchoolCheck</h1>
-    <p>ระบบเช็กชื่อนักเรียนออนไลน์ สำหรับคุณครู</p>
-  </div>
+<h1>📋 ระบบเช็กชื่อนักเรียนออนไลน์</h1>
+<p>ระบบบันทึกการเข้าเรียนสำหรับคุณครู • เวอร์ชันทดลอง</p>
 </header>
-
 <main>
-
-<section class="card">
-  <h2>📅 ข้อมูลการเช็กชื่อ</h2>
-
-  <div class="controls">
-    <div class="field">
-      <label for="room">เลือกห้องเรียน</label>
-      <select id="room">
-        <option>ม.1/1</option>
-        <option>ม.1/2</option>
-        <option>ม.2/1</option>
-        <option>ม.2/2</option>
-        <option>ม.3/1</option>
-        <option>ม.3/2</option>
-        <option>ม.4/1</option>
-        <option>ม.4/2</option>
-        <option>ม.5/1</option>
-        <option>ม.5/2</option>
-        <option>ม.6/1</option>
-        <option>ม.6/2</option>
-      </select>
-    </div>
-
-    <div class="field">
-      <label for="date">วันที่</label>
-      <input type="date" id="date">
-    </div>
-
-    <div class="field">
-      <label for="search">ค้นหานักเรียน</label>
-      <input
-        type="text"
-        id="search"
-        placeholder="ค้นหาชื่อหรือเลขที่"
-      >
-    </div>
-
-    <button id="exportBtn">
-      📥 ส่งออก Excel
-    </button>
-  </div>
+<section class="panel">
+<div class="toolbar">
+<div class="field">
+<label for="classroom">ห้องเรียน</label>
+<select id="classroom">
+<option>ม.1/1</option>
+<option>ม.1/2</option>
+<option>ม.2/1</option>
+<option>ม.3/1</option>
+<option>ม.4/1</option>
+<option>ม.5/1</option>
+<option>ม.6/1</option>
+</select>
+</div>
+<div class="field">
+<label for="date">วันที่เช็กชื่อ</label>
+<input type="date" id="date">
+</div>
+<div class="field">
+<label for="search">ค้นหานักเรียน</label>
+<input id="search" placeholder="ชื่อ หรือ เลขที่">
+</div>
+<button id="export">ดาวน์โหลด CSV</button>
+</div>
 </section>
-
-<section class="card">
-  <h2>📊 สถิติการเข้าเรียน</h2>
-
-  <div class="stats">
-    <div class="stat total">
-      <strong id="total">0</strong>
-      <span>นักเรียนทั้งหมด</span>
-    </div>
-
-    <div class="stat present">
-      <strong id="present">0</strong>
-      <span>มาเรียน</span>
-    </div>
-
-    <div class="stat late">
-      <strong id="late">0</strong>
-      <span>มาสาย</span>
-    </div>
-
-    <div class="stat absent">
-      <strong id="absent">0</strong>
-      <span>ขาดเรียน</span>
-    </div>
-
-    <div class="stat leave">
-      <strong id="leave">0</strong>
-      <span>ลา</span>
-    </div>
-  </div>
+<section class="panel">
+<h2>สรุปการเข้าเรียน</h2>
+<div class="stats">
+<div class="stat"><strong id="total">0</strong><span>นักเรียนทั้งหมด</span></div>
+<div class="stat"><strong id="present">0</strong><span>มาเรียน</span></div>
+<div class="stat"><strong id="late">0</strong><span>มาสาย</span></div>
+<div class="stat"><strong id="absent">0</strong><span>ขาดเรียน</span></div>
+<div class="stat"><strong id="leave">0</strong><span>ลา</span></div>
+</div>
 </section>
-
-<section class="card">
-
-  <div class="flex">
-    <h2>👨‍🎓 รายชื่อนักเรียน</h2>
-
-    <div class="actions">
-      <button class="btn-light" id="allPresentBtn">
-        ✓ เช็กมาทั้งห้อง
-      </button>
-
-      <button id="addStudentBtn">
-        + เพิ่มนักเรียน
-      </button>
-    </div>
-  </div>
-
-  <p class="note">
-    เลือกสถานะการเข้าเรียน ระบบจะบันทึกข้อมูลอัตโนมัติ
-    โดยแยกตามห้องเรียนและวันที่
-  </p>
-
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr>
-          <th>เลขที่</th>
-          <th>ชื่อ–นามสกุล</th>
-          <th>สถานะการเข้าเรียน</th>
-          <th>จัดการ</th>
-        </tr>
-      </thead>
-
-      <tbody id="studentTable"></tbody>
-    </table>
-  </div>
-
-  <p id="emptyMessage" class="empty"></p>
-
+<section class="panel">
+<div class="row">
+<h2>รายชื่อนักเรียน</h2>
+<div class="row">
+<button class="secondary" id="allPresent">เช็กมาทั้งห้อง</button>
+<button class="secondary" id="add">+ เพิ่มนักเรียน</button>
+</div>
+</div>
+<p class="muted">เลือกสถานะเพื่อบันทึกอัตโนมัติ • ข้อมูลจะแยกตามห้องเรียนและวันที่</p>
+<div class="scroll">
+<table>
+<thead>
+<tr>
+<th>เลขที่</th>
+<th>ชื่อ–นามสกุล</th>
+<th>สถานะ</th>
+<th>จัดการ</th>
+</tr>
+</thead>
+<tbody id="students"></tbody>
+</table>
+</div>
+<p class="muted" id="empty"></p>
 </section>
-
-<section class="card">
-
-  <div class="flex">
-    <div>
-      <h2>💾 สำรองข้อมูล</h2>
-      <p class="note">
-        ดาวน์โหลดข้อมูลเพื่อเก็บสำรอง
-        หรือนำข้อมูลที่เคยสำรองกลับมาใช้งาน
-      </p>
-    </div>
-
-    <div class="actions">
-      <button class="btn-light" id="backupBtn">
-        ดาวน์โหลด JSON
-      </button>
-
-      <button class="btn-light" id="importBtn">
-        นำเข้าข้อมูล
-      </button>
-
-      <input
-        type="file"
-        id="importFile"
-        accept=".json,application/json"
-        class="hidden"
-      >
-    </div>
-  </div>
-
+<section class="panel">
+<div class="row">
+<div>
+<h2>สำรองและกู้คืนข้อมูล</h2>
+<p class="muted">ข้อมูลเก็บในเบราว์เซอร์เครื่องนี้ ไม่ได้ซิงก์ข้ามอุปกรณ์</p>
+</div>
+<div class="row">
+<button id="backup" class="secondary">สำรอง JSON</button>
+<button id="restore" class="secondary">นำเข้า JSON</button>
+<input id="restoreFile" type="file" accept="application/json,.json" class="hide">
+</div>
+</div>
 </section>
-
 </main>
-
-<footer>
-  © SchoolCheck | Student Attendance System
-</footer>
-
+<footer>ระบบสาธิต • ห้ามใช้ข้อมูลนักเรียนจริงโดยไม่มีมาตรการความปลอดภัยและการคุ้มครองข้อมูลส่วนบุคคล</footer>
 <script>
-"use strict";
-
-const $ = id => document.getElementById(id);
-
-const STORAGE_KEY = "schoolcheck_final_v1";
-
-const statusNames = {
-  present: "มาเรียน",
-  late: "มาสาย",
-  absent: "ขาดเรียน",
-  leave: "ลา"
+'use strict';
+const $=id=>document.getElementById(id),KEY='attendance_demo_v1';
+let db;
+try{db=JSON.parse(localStorage.getItem(KEY))||{rosters:{},records:{}}}
+catch{db={rosters:{},records:{}}}
+if(!db.rosters||typeof db.rosters!=='object')db.rosters={};
+if(!db.records||typeof db.records!=='object')db.records={};
+const sample=['เด็กชายธนกฤต ใจดี','เด็กหญิงพิมพ์ชนก สดใส','เด็กชายณัฐวุฒิ เรียนดี','เด็กหญิงกัญญารัตน์ สุขใจ','เด็กชายภาคิน ตั้งใจ'];
+if(!Object.keys(db.rosters).length){
+db.rosters['ม.1/1']=sample.map((name,i)=>({id:crypto.randomUUID(),number:i+1,name}));
+save()
+}
+function save(){localStorage.setItem(KEY,JSON.stringify(db))}
+function key(){return $('classroom').value+'|'+$('date').value}
+function roster(){return db.rosters[$('classroom').value]||[]}
+function records(){return db.records[key()]||{}}
+function setStatus(id,status){
+if(!db.records[key()])db.records[key()]={};
+db.records[key()][id]=status;
+save();
+render()
+}
+function render(){
+let list=roster(),rec=records(),q=$('search').value.trim().toLowerCase();
+$('total').textContent=list.length;
+for(const s of ['present','late','absent','leave'])
+$(s).textContent=list.filter(x=>rec[x.id]===s).length;
+const tbody=$('students');
+tbody.replaceChildren();
+const names={present:'มาเรียน',late:'มาสาย',absent:'ขาดเรียน',leave:'ลา'};
+for(const student of list.filter(x=>x.name.toLowerCase().includes(q)||String(x.number).includes(q)).sort((a,b)=>a.number-b.number)){
+const tr=document.createElement('tr');
+const number=document.createElement('td');
+number.textContent=student.number;
+const name=document.createElement('td');
+name.textContent=student.name;
+const status=document.createElement('td');
+const group=document.createElement('div');
+group.className='status';
+for(const [code,label]of Object.entries(names)){
+const btn=document.createElement('button');
+btn.textContent=label;
+btn.className=(rec[student.id]===code?'active '+code:'');
+btn.onclick=()=>setStatus(student.id,code);
+group.append(btn)
+}
+status.append(group);
+const actions=document.createElement('td');
+const edit=document.createElement('button');
+edit.textContent='แก้ไข';
+edit.className='secondary';
+edit.onclick=()=>editStudent(student);
+const del=document.createElement('button');
+del.textContent='ลบ';
+del.className='danger';
+del.style.marginLeft='5px';
+del.onclick=()=>deleteStudent(student);
+actions.append(edit,del);
+tr.append(number,name,status,actions);
+tbody.append(tr)
+}
+$('empty').textContent=tbody.children.length?'': 'ไม่พบรายชื่อนักเรียน — กด “เพิ่มนักเรียน” เพื่อเริ่มต้น'
+}
+function editStudent(student){
+const name=prompt('ชื่อ–นามสกุล',student.name);
+if(name===null)return;
+if(!name.trim())return alert('กรุณากรอกชื่อ');
+const no=prompt('เลขที่',student.number);
+if(no===null)return;
+const num=Number(no);
+if(!Number.isInteger(num)||num<1)return alert('เลขที่ต้องเป็นจำนวนเต็มบวก');
+if(roster().some(s=>s.id!==student.id&&s.number===num))return alert('เลขที่ซ้ำ');
+student.name=name.trim();
+student.number=num;
+save();
+render()
+}
+function deleteStudent(student){
+if(!confirm('ลบ '+student.name+' ออกจากห้องนี้?'))return;
+db.rosters[$('classroom').value]=roster().filter(x=>x.id!==student.id);
+for(const rec of Object.values(db.records))delete rec[student.id];
+save();
+render()
+}
+$('add').onclick=()=>{
+const name=prompt('ชื่อ–นามสกุลนักเรียน');
+if(name===null)return;
+if(!name.trim())return alert('กรุณากรอกชื่อ');
+const next=Math.max(0,...roster().map(x=>x.number))+1;
+const no=prompt('เลขที่',next);
+if(no===null)return;
+const num=Number(no);
+if(!Number.isInteger(num)||num<1||roster().some(x=>x.number===num))return alert('เลขที่ไม่ถูกต้องหรือซ้ำ');
+if(!db.rosters[$('classroom').value])db.rosters[$('classroom').value]=[];
+db.rosters[$('classroom').value].push({id:crypto.randomUUID(),number:num,name:name.trim()});
+save();
+render()
 };
-
-let database;
-
-function emptyDatabase() {
-  return {
-    students: {},
-    attendance: {}
-  };
-}
-
-try {
-  database =
-    JSON.parse(localStorage.getItem(STORAGE_KEY)) ||
-    emptyDatabase();
-} catch (error) {
-  database = emptyDatabase();
-}
-
-if (
-  !database ||
-  !database.students ||
-  !database.attendance
-) {
-  database = emptyDatabase();
-}
-
-function saveData() {
-  try {
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify(database)
-    );
-    return true;
-  } catch (error) {
-    alert("บันทึกข้อมูลไม่สำเร็จ");
-    return false;
-  }
-}
-
-function createId() {
-  if (window.crypto && crypto.randomUUID) {
-    return crypto.randomUUID();
-  }
-
-  return Date.now().toString(36) +
-    Math.random().toString(36).slice(2);
-}
-
-const sampleStudents = [
-  "เด็กชายธนกฤต ใจดี",
-  "เด็กหญิงพิมพ์ชนก สดใส",
-  "เด็กชายณัฐวุฒิ เรียนดี",
-  "เด็กหญิงกัญญารัตน์ สุขใจ",
-  "เด็กชายภาคิน ตั้งใจ"
-];
-
-if (Object.keys(database.students).length === 0) {
-  database.students["ม.1/1"] =
-    sampleStudents.map((name, index) => ({
-      id: createId(),
-      number: index + 1,
-      name: name
-    }));
-
-  saveData();
-}
-
-function getRoom() {
-  return $("room").value;
-}
-
-function getStudents() {
-  return database.students[getRoom()] || [];
-}
-
-function getRecordKey() {
-  return getRoom() + "|" + $("date").value;
-}
-
-function getAttendance() {
-  return database.attendance[getRecordKey()] || {};
-}
-
-function setAttendance(studentId, status) {
-  const key = getRecordKey();
-
-  if (!database.attendance[key]) {
-    database.attendance[key] = {};
-  }
-
-  database.attendance[key][studentId] = status;
-
-  saveData();
-  render();
-}
-
-function render() {
-  const students = getStudents();
-  const attendance = getAttendance();
-
-  const keyword =
-    $("search").value.trim().toLowerCase();
-
-  $("total").textContent = students.length;
-
-  for (const status of Object.keys(statusNames)) {
-    $(status).textContent =
-      students.filter(student =>
-        attendance[student.id] === status
-      ).length;
-  }
-
-  const table = $("studentTable");
-  table.replaceChildren();
-
-  const filtered = students
-    .filter(student =>
-      student.name.toLowerCase().includes(keyword) ||
-      String(student.number).includes(keyword)
-    )
-    .sort((a, b) => a.number - b.number);
-
-  for (const student of filtered) {
-    const row = document.createElement("tr");
-
-    const numberCell = document.createElement("td");
-    numberCell.textContent = student.number;
-
-    const nameCell = document.createElement("td");
-    nameCell.textContent = student.name;
-
-    const statusCell = document.createElement("td");
-    const statusGroup = document.createElement("div");
-    statusGroup.className = "status-buttons";
-
-    for (const [code, label] of Object.entries(statusNames)) {
-      const button = document.createElement("button");
-      button.textContent = label;
-
-      if (attendance[student.id] === code) {
-        button.classList.add("selected-" + code);
-      }
-
-      button.onclick = () =>
-        setAttendance(student.id, code);
-
-      statusGroup.appendChild(button);
-    }
-
-    statusCell.appendChild(statusGroup);
-
-    const actionCell = document.createElement("td");
-
-    const editButton = document.createElement("button");
-    editButton.textContent = "แก้ไข";
-    editButton.className = "btn-light btn-small";
-    editButton.onclick = () => editStudent(student);
-
-    const deleteButton = document.createElement("button");
-    deleteButton.textContent = "ลบ";
-    deleteButton.className = "btn-danger btn-small";
-    deleteButton.style.marginLeft = "5px";
-    deleteButton.onclick = () => deleteStudent(student);
-
-    actionCell.append(editButton, deleteButton);
-
-    row.append(
-      numberCell,
-      nameCell,
-      statusCell,
-      actionCell
-    );
-
-    table.appendChild(row);
-  }
-
-  $("emptyMessage").textContent =
-    filtered.length === 0
-      ? "ไม่พบรายชื่อนักเรียน"
-      : "";
-}
-
-function editStudent(student) {
-  const name = prompt(
-    "แก้ไขชื่อ–นามสกุล",
-    student.name
-  );
-
-  if (name === null) return;
-
-  if (!name.trim()) {
-    alert("กรุณากรอกชื่อ");
-    return;
-  }
-
-  const number = prompt(
-    "แก้ไขเลขที่",
-    student.number
-  );
-
-  if (number === null) return;
-
-  const num = Number(number);
-
-  if (!Number.isInteger(num) || num < 1) {
-    alert("เลขที่ไม่ถูกต้อง");
-    return;
-  }
-
-  const duplicate = getStudents().some(s =>
-    s.id !== student.id &&
-    s.number === num
-  );
-
-  if (duplicate) {
-    alert("เลขที่นี้มีอยู่แล้ว");
-    return;
-  }
-
-  student.name = name.trim();
-  student.number = num;
-
-  saveData();
-  render();
-}
-
-function deleteStudent(student) {
-  const confirmed = confirm(
-    "ต้องการลบนักเรียน " +
-    student.name +
-    " หรือไม่?"
-  );
-
-  if (!confirmed) return;
-
-  database.students[getRoom()] =
-    getStudents().filter(s => s.id !== student.id);
-
-  for (const record of Object.values(database.attendance)) {
-    delete record[student.id];
-  }
-
-  saveData();
-  render();
-}
-
-$("addStudentBtn").onclick = () => {
-  const name = prompt(
-    "กรอกชื่อ–นามสกุลนักเรียน"
-  );
-
-  if (name === null) return;
-
-  if (!name.trim()) {
-    alert("กรุณากรอกชื่อ");
-    return;
-  }
-
-  const nextNumber =
-    Math.max(
-      0,
-      ...getStudents().map(s => s.number)
-    ) + 1;
-
-  const number = prompt(
-    "กรอกเลขที่",
-    nextNumber
-  );
-
-  if (number === null) return;
-
-  const num = Number(number);
-
-  if (
-    !Number.isInteger(num) ||
-    num < 1 ||
-    getStudents().some(s => s.number === num)
-  ) {
-    alert("เลขที่ไม่ถูกต้องหรือซ้ำ");
-    return;
-  }
-
-  if (!database.students[getRoom()]) {
-    database.students[getRoom()] = [];
-  }
-
-  database.students[getRoom()].push({
-    id: createId(),
-    number: num,
-    name: name.trim()
-  });
-
-  saveData();
-  render();
+$('allPresent').onclick=()=>{
+if(!confirm('ตั้งสถานะทุกคนเป็น “มาเรียน” สำหรับวันนี้?'))return;
+if(!db.records[key()])db.records[key()]={};
+for(const s of roster())db.records[key()][s.id]='present';
+save();
+render()
 };
-
-$("allPresentBtn").onclick = () => {
-  if (!confirm("เช็กชื่อมาเรียนทั้งห้องใช่หรือไม่?")) {
-    return;
-  }
-
-  const key = getRecordKey();
-
-  if (!database.attendance[key]) {
-    database.attendance[key] = {};
-  }
-
-  for (const student of getStudents()) {
-    database.attendance[key][student.id] = "present";
-  }
-
-  saveData();
-  render();
-};
-
-function downloadFile(filename, content, type) {
-  const blob = new Blob([content], { type });
-  const url = URL.createObjectURL(blob);
-
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = filename;
-
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
+function download(name,content,type){
+const a=document.createElement('a'),url=URL.createObjectURL(new Blob([content],{type}));
+a.href=url;
+a.download=name;
+a.click();
+setTimeout(()=>URL.revokeObjectURL(url),1000)
 }
-
-function escapeCSV(value) {
-  let text = String(value ?? "");
-
-  if (/^[=+\-@\t\r]/.test(text)) {
-    text = "'" + text;
-  }
-
-  return '"' + text.replaceAll('"', '""') + '"';
+function csv(v){return '"'+String(v??'').replaceAll('"','""')+'"'}
+$('export').onclick=()=>{
+const rec=records(),labels={present:'มาเรียน',late:'มาสาย',absent:'ขาดเรียน',leave:'ลา'};
+const lines=[['วันที่','ห้องเรียน','เลขที่','ชื่อ-นามสกุล','สถานะ'],...roster().sort((a,b)=>a.number-b.number).map(s=>[$('date').value,$('classroom').value,s.number,s.name,labels[rec[s.id]]||'ยังไม่เช็ก'])];
+download('attendance-'+$('date').value+'.csv','\uFEFF'+lines.map(row=>row.map(csv).join(',')).join('\r\n'),'text/csv;charset=utf-8')
+};
+$('backup').onclick=()=>download('attendance-backup.json',JSON.stringify(db,null,2),'application/json');
+$('restore').onclick=()=>$('restoreFile').click();
+$('restoreFile').onchange=async e=>{
+const file=e.target.files[0];
+if(!file)return;
+try{
+const incoming=JSON.parse(await file.text());
+if(!incoming||typeof incoming.rosters!=='object'||!incoming.rosters||typeof incoming.records!=='object'||!incoming.records||Array.isArray(incoming.rosters)||Array.isArray(incoming.records))throw Error('รูปแบบไฟล์ไม่ถูกต้อง');
+for(const list of Object.values(incoming.rosters)){
+if(!Array.isArray(list)||!list.every(x=>typeof x.id==='string'&&typeof x.name==='string'&&Number.isInteger(x.number)))throw Error('ข้อมูลนักเรียนไม่ถูกต้อง')
 }
-
-$("exportBtn").onclick = () => {
-  const attendance = getAttendance();
-
-  const rows = [
-    [
-      "วันที่",
-      "ห้องเรียน",
-      "เลขที่",
-      "ชื่อ-นามสกุล",
-      "สถานะ"
-    ]
-  ];
-
-  const students =
-    [...getStudents()].sort((a, b) => a.number - b.number);
-
-  for (const student of students) {
-    rows.push([
-      $("date").value,
-      getRoom(),
-      student.number,
-      student.name,
-      statusNames[attendance[student.id]] || "ยังไม่เช็ก"
-    ]);
-  }
-
-  const csvContent =
-    "\uFEFF" +
-    rows.map(row =>
-      row.map(escapeCSV).join(",")
-    ).join("\r\n");
-
-  downloadFile(
-    "attendance-" + $("date").value + ".csv",
-    csvContent,
-    "text/csv;charset=utf-8"
-  );
+for(const rec of Object.values(incoming.records)){
+if(!rec||typeof rec!=='object'||Array.isArray(rec)||!Object.values(rec).every(s=>['present','late','absent','leave'].includes(s)))throw Error('ข้อมูลสถานะไม่ถูกต้อง')
+}
+if(!confirm('นำเข้าข้อมูลนี้แทนข้อมูลเดิมทั้งหมด?'))return;
+db=incoming;
+save();
+render();
+alert('นำเข้าสำเร็จ')
+}catch(err){alert('นำเข้าไม่สำเร็จ: '+err.message)}
+finally{e.target.value=''}
 };
-
-$("backupBtn").onclick = () => {
-  downloadFile(
-    "schoolcheck-backup.json",
-    JSON.stringify(database, null, 2),
-    "application/json"
-  );
-};
-
-$("importBtn").onclick = () => {
-  $("importFile").click();
-};
-
-$("importFile").onchange = async event => {
-  const file = event.target.files[0];
-
-  if (!file) return;
-
-  try {
-    if (file.size > 5 * 1024 * 1024) {
-      throw new Error("ไฟล์ใหญ่เกิน 5 MB");
-    }
-
-    const data = JSON.parse(await file.text());
-
-    if (
-      !data ||
-      !data.students ||
-      !data.attendance ||
-      typeof data.students !== "object" ||
-      typeof data.attendance !== "object" ||
-      Array.isArray(data.students) ||
-      Array.isArray(data.attendance)
-    ) {
-      throw new Error("รูปแบบไฟล์ไม่ถูกต้อง");
-    }
-
-    for (const list of Object.values(data.students)) {
-      if (
-        !Array.isArray(list) ||
-        !list.every(s =>
-          typeof s.id === "string" &&
-          typeof s.name === "string" &&
-          Number.isInteger(s.number) &&
-          s.number > 0
-        )
-      ) {
-        throw new Error("ข้อมูลนักเรียนไม่ถูกต้อง");
-      }
-    }
-
-    for (const record of Object.values(data.attendance)) {
-      if (
-        !record ||
-        typeof record !== "object" ||
-        Array.isArray(record) ||
-        !Object.values(record).every(status =>
-          Object.hasOwn(statusNames, status)
-        )
-      ) {
-        throw new Error("ข้อมูลการเช็กชื่อไม่ถูกต้อง");
-      }
-    }
-
-    if (!confirm("นำเข้าข้อมูลแทนข้อมูลเดิมทั้งหมด?")) {
-      return;
-    }
-
-    database = data;
-    saveData();
-    render();
-
-    alert("นำเข้าข้อมูลสำเร็จ");
-
-  } catch (error) {
-    alert("นำเข้าไม่สำเร็จ: " + error.message);
-  }
-
-  event.target.value = "";
-};
-
-$("room").addEventListener("change", render);
-$("date").addEventListener("change", render);
-$("search").addEventListener("input", render);
-
-const today = new Date();
-
-$("date").value = [
-  today.getFullYear(),
-  String(today.getMonth() + 1).padStart(2, "0"),
-  String(today.getDate()).padStart(2, "0")
-].join("-");
-
+$('classroom').onchange=render;
+$('date').onchange=render;
+$('search').oninput=render;
+const now=new Date();
+$('date').value=[now.getFullYear(),String(now.getMonth()+1).padStart(2,'0'),String(now.getDate()).padStart(2,'0')].join('-');
 render();
 </script>
-
 </body>
 </html>
