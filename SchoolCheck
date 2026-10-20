@@ -1,0 +1,690 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SchoolCheck | ระบบเช็กชื่อนักเรียน</title>
+<style>
+:root{
+  --blue:#4f46e5;
+  --dark:#172554;
+  --bg:#f4f7fc;
+  --line:#e2e8f0;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Tahoma,Arial,sans-serif;
+  background:var(--bg);
+  color:#1e293b;
+}
+header{
+  padding:30px 6%;
+  background:linear-gradient(120deg,#1e40af,#7c3aed);
+  color:white;
+}
+header h1{margin:0;font-size:30px}
+header p{opacity:.85}
+main{
+  max-width:1150px;
+  margin:25px auto;
+  padding:0 16px;
+}
+.card{
+  background:white;
+  padding:22px;
+  border-radius:18px;
+  margin-bottom:20px;
+  box-shadow:0 5px 25px #1e293b0d;
+}
+h2{font-size:20px;margin:0 0 18px}
+.controls{
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+  align-items:end;
+}
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+  flex:1;
+  min-width:150px;
+}
+label{font-size:13px;font-weight:bold}
+input,select{
+  padding:12px;
+  border:1px solid #cbd5e1;
+  border-radius:10px;
+  font:inherit;
+  width:100%;
+}
+button{
+  background:var(--blue);
+  color:white;
+  border:none;
+  padding:11px 16px;
+  border-radius:10px;
+  cursor:pointer;
+  font:inherit;
+}
+button:hover{filter:brightness(.95)}
+.secondary{background:#e0e7ff;color:#3730a3}
+.danger{background:#fee2e2;color:#b91c1c}
+.stats{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:12px;
+}
+.stat{
+  padding:18px;
+  border-radius:13px;
+  background:#f1f5f9;
+}
+.stat strong{
+  display:block;
+  font-size:28px;
+  margin-bottom:5px;
+}
+.stat span{font-size:13px;color:#64748b}
+.flex{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th,td{
+  padding:14px 10px;
+  text-align:left;
+  border-bottom:1px solid var(--line);
+}
+th{background:#f8fafc;color:#475569}
+.status-buttons{
+  display:flex;
+  gap:5px;
+  flex-wrap:wrap;
+}
+.status-buttons button{
+  padding:8px 10px;
+  background:#e2e8f0;
+  color:#475569;
+  font-size:12px;
+}
+.status-buttons .present{
+  background:#dcfce7;color:#166534;
+}
+.status-buttons .late{
+  background:#fef3c7;color:#92400e;
+}
+.status-buttons .absent{
+  background:#fee2e2;color:#991b1b;
+}
+.status-buttons .leave{
+  background:#e0e7ff;color:#3730a3;
+}
+.note{font-size:13px;color:#64748b}
+.hidden{display:none}
+footer{
+  text-align:center;
+  padding:25px;
+  color:#94a3b8;
+  font-size:13px;
+}
+@media(max-width:700px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  header h1{font-size:24px}
+  .card{padding:15px}
+  th,td{padding:10px 6px;font-size:13px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📋 SchoolCheck</h1>
+  <p>ระบบเช็กชื่อนักเรียนออนไลน์ สำหรับคุณครู</p>
+</header>
+
+<main>
+
+<section class="card">
+  <h2>เลือกข้อมูลการเช็กชื่อ</h2>
+  <div class="controls">
+    <div class="field">
+      <label>ห้องเรียน</label>
+      <select id="room">
+        <option>ม.1/1</option>
+        <option>ม.1/2</option>
+        <option>ม.2/1</option>
+        <option>ม.2/2</option>
+        <option>ม.3/1</option>
+        <option>ม.3/2</option>
+        <option>ม.4/1</option>
+        <option>ม.4/2</option>
+        <option>ม.5/1</option>
+        <option>ม.5/2</option>
+        <option>ม.6/1</option>
+        <option>ม.6/2</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>วันที่</label>
+      <input type="date" id="date">
+    </div>
+    <div class="field">
+      <label>ค้นหานักเรียน</label>
+      <input id="search" placeholder="ชื่อหรือเลขที่">
+    </div>
+    <button id="exportBtn">ส่งออก Excel</button>
+  </div>
+</section>
+
+<section class="card">
+  <h2>ภาพรวมการเข้าเรียน</h2>
+  <div class="stats">
+    <div class="stat">
+      <strong id="total">0</strong>
+      <span>นักเรียนทั้งหมด</span>
+    </div>
+    <div class="stat">
+      <strong id="present">0</strong>
+      <span>มาเรียน</span>
+    </div>
+    <div class="stat">
+      <strong id="late">0</strong>
+      <span>มาสาย</span>
+    </div>
+    <div class="stat">
+      <strong id="absent">0</strong>
+      <span>ขาดเรียน</span>
+    </div>
+    <div class="stat">
+      <strong id="leave">0</strong>
+      <span>ลา</span>
+    </div>
+  </div>
+</section>
+
+<section class="card">
+  <div class="flex">
+    <h2>รายชื่อนักเรียน</h2>
+    <div class="actions">
+      <button class="secondary" id="allBtn">
+        เช็กมาทั้งห้อง
+      </button>
+      <button id="addBtn">
+        + เพิ่มนักเรียน
+      </button>
+    </div>
+  </div>
+  <p class="note">
+    เลือกสถานะเพื่อบันทึกข้อมูลอัตโนมัติ
+  </p>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>เลขที่</th>
+          <th>ชื่อ–นามสกุล</th>
+          <th>สถานะการเข้าเรียน</th>
+          <th>จัดการ</th>
+        </tr>
+      </thead>
+      <tbody id="studentTable"></tbody>
+    </table>
+  </div>
+  <p id="empty" class="note"></p>
+</section>
+
+<section class="card">
+  <div class="flex">
+    <div>
+      <h2>สำรองข้อมูล</h2>
+      <p class="note">
+        ข้อมูลถูกบันทึกในเบราว์เซอร์ของเครื่องนี้
+      </p>
+    </div>
+    <div class="actions">
+      <button class="secondary" id="backupBtn">
+        ดาวน์โหลดข้อมูล JSON
+      </button>
+      <button class="secondary" id="importBtn">
+        นำเข้าข้อมูล
+      </button>
+      <input type="file" id="fileInput"
+             accept=".json" class="hidden">
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  © SchoolCheck | Student Attendance System
+</footer>
+
+<script>
+"use strict";
+
+const $ = id => document.getElementById(id);
+const STORAGE_KEY = "schoolcheck_v2";
+
+const statusNames = {
+  present:"มาเรียน",
+  late:"มาสาย",
+  absent:"ขาดเรียน",
+  leave:"ลา"
+};
+
+let database;
+
+try {
+  database = JSON.parse(
+    localStorage.getItem(STORAGE_KEY)
+  ) || {students:{},attendance:{}};
+} catch(e) {
+  database = {students:{},attendance:{}};
+}
+
+if(!database.students || !database.attendance){
+  database = {students:{},attendance:{}};
+}
+
+function save(){
+  try {
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(database)
+    );
+  } catch(e) {
+    alert("บันทึกไม่สำเร็จ กรุณาตรวจสอบพื้นที่จัดเก็บ");
+  }
+}
+
+const sampleNames = [
+  "เด็กชายธนกฤต ใจดี",
+  "เด็กหญิงพิมพ์ชนก สดใส",
+  "เด็กชายณัฐวุฒิ เรียนดี",
+  "เด็กหญิงกัญญารัตน์ สุขใจ",
+  "เด็กชายภาคิน ตั้งใจ"
+];
+
+if(Object.keys(database.students).length === 0){
+  database.students["ม.1/1"] =
+    sampleNames.map((name,index)=>({
+      id:crypto.randomUUID(),
+      number:index+1,
+      name:name
+    }));
+  save();
+}
+
+function getRoom(){
+  return $("room").value;
+}
+
+function getStudents(){
+  return database.students[getRoom()] || [];
+}
+
+function getRecordKey(){
+  return getRoom()+"|"+$("date").value;
+}
+
+function getAttendance(){
+  return database.attendance[getRecordKey()] || {};
+}
+
+function updateStatus(id,status){
+  const key = getRecordKey();
+
+  if(!database.attendance[key]){
+    database.attendance[key] = {};
+  }
+
+  database.attendance[key][id] = status;
+  save();
+  render();
+}
+
+function render(){
+  const students = getStudents();
+  const attendance = getAttendance();
+  const keyword = $("search").value.toLowerCase().trim();
+
+  $("total").textContent = students.length;
+
+  Object.keys(statusNames).forEach(status=>{
+    $(status).textContent =
+      students.filter(student=>
+        attendance[student.id] === status
+      ).length;
+  });
+
+  const tbody = $("studentTable");
+  tbody.replaceChildren();
+
+  const filtered = students
+    .filter(student=>
+      student.name.toLowerCase().includes(keyword) ||
+      String(student.number).includes(keyword)
+    )
+    .sort((a,b)=>a.number-b.number);
+
+  filtered.forEach(student=>{
+    const tr = document.createElement("tr");
+
+    const numberCell = document.createElement("td");
+    numberCell.textContent = student.number;
+
+    const nameCell = document.createElement("td");
+    nameCell.textContent = student.name;
+
+    const statusCell = document.createElement("td");
+    const statusGroup = document.createElement("div");
+    statusGroup.className = "status-buttons";
+
+    Object.entries(statusNames).forEach(([code,label])=>{
+      const btn = document.createElement("button");
+      btn.textContent = label;
+
+      if(attendance[student.id] === code){
+        btn.classList.add(code);
+      }
+
+      btn.onclick = ()=>updateStatus(student.id,code);
+      statusGroup.appendChild(btn);
+    });
+
+    statusCell.appendChild(statusGroup);
+
+    const actionCell = document.createElement("td");
+
+    const editBtn = document.createElement("button");
+    editBtn.textContent = "แก้ไข";
+    editBtn.className = "secondary";
+    editBtn.onclick = ()=>editStudent(student);
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "ลบ";
+    deleteBtn.className = "danger";
+    deleteBtn.style.marginLeft = "5px";
+    deleteBtn.onclick = ()=>deleteStudent(student);
+
+    actionCell.append(editBtn,deleteBtn);
+
+    tr.append(
+      numberCell,
+      nameCell,
+      statusCell,
+      actionCell
+    );
+
+    tbody.appendChild(tr);
+  });
+
+  $("empty").textContent =
+    filtered.length === 0
+      ? "ไม่พบรายชื่อนักเรียน"
+      : "";
+}
+
+function editStudent(student){
+  const name = prompt("ชื่อ–นามสกุล",student.name);
+  if(name === null) return;
+  if(!name.trim()){
+    alert("กรุณากรอกชื่อ");
+    return;
+  }
+
+  const number = prompt("เลขที่",student.number);
+  if(number === null) return;
+
+  const num = Number(number);
+
+  if(!Number.isInteger(num) || num <= 0){
+    alert("เลขที่ไม่ถูกต้อง");
+    return;
+  }
+
+  if(getStudents().some(s=>
+    s.id !== student.id && s.number === num
+  )){
+    alert("เลขที่นี้มีอยู่แล้ว");
+    return;
+  }
+
+  student.name = name.trim();
+  student.number = num;
+  save();
+  render();
+}
+
+function deleteStudent(student){
+  if(!confirm("ต้องการลบ "+student.name+" หรือไม่?")){
+    return;
+  }
+
+  database.students[getRoom()] =
+    getStudents().filter(s=>s.id !== student.id);
+
+  Object.values(database.attendance).forEach(record=>{
+    delete record[student.id];
+  });
+
+  save();
+  render();
+}
+
+$("addBtn").onclick = ()=>{
+  const name = prompt("กรอกชื่อ–นามสกุลนักเรียน");
+  if(name === null) return;
+  if(!name.trim()){
+    alert("กรุณากรอกชื่อ");
+    return;
+  }
+
+  const nextNumber =
+    Math.max(0,...getStudents().map(s=>s.number))+1;
+
+  const number = prompt("เลขที่",nextNumber);
+  if(number === null) return;
+
+  const num = Number(number);
+
+  if(
+    !Number.isInteger(num) ||
+    num <= 0 ||
+    getStudents().some(s=>s.number === num)
+  ){
+    alert("เลขที่ไม่ถูกต้องหรือซ้ำ");
+    return;
+  }
+
+  if(!database.students[getRoom()]){
+    database.students[getRoom()] = [];
+  }
+
+  database.students[getRoom()].push({
+    id:crypto.randomUUID(),
+    number:num,
+    name:name.trim()
+  });
+
+  save();
+  render();
+};
+
+$("allBtn").onclick = ()=>{
+  if(!confirm("เช็กชื่อมาเรียนทั้งห้องใช่หรือไม่?")){
+    return;
+  }
+
+  const key = getRecordKey();
+
+  if(!database.attendance[key]){
+    database.attendance[key] = {};
+  }
+
+  getStudents().forEach(student=>{
+    database.attendance[key][student.id] = "present";
+  });
+
+  save();
+  render();
+};
+
+function downloadFile(filename,content,type){
+  const blob = new Blob([content],{type:type});
+  const url = URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  link.click();
+
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+
+function csvValue(value){
+  let text = String(value ?? "");
+
+  // ป้องกัน Excel ตีความข้อมูลเป็นสูตร
+  if(/^[=+\-@\t\r]/.test(text)){
+    text = "'" + text;
+  }
+
+  return '"' + text.replaceAll('"','""') + '"';
+}
+
+$("exportBtn").onclick = ()=>{
+  const attendance = getAttendance();
+
+  const rows = [
+    ["วันที่","ห้องเรียน","เลขที่","ชื่อ-นามสกุล","สถานะ"]
+  ];
+
+  [...getStudents()]
+    .sort((a,b)=>a.number-b.number)
+    .forEach(student=>{
+      rows.push([
+        $("date").value,
+        getRoom(),
+        student.number,
+        student.name,
+        statusNames[attendance[student.id]] || "ยังไม่เช็ก"
+      ]);
+    });
+
+  const content =
+    "\uFEFF" +
+    rows.map(row=>row.map(csvValue).join(","))
+        .join("\r\n");
+
+  downloadFile(
+    "attendance-"+$("date").value+".csv",
+    content,
+    "text/csv;charset=utf-8"
+  );
+};
+
+$("backupBtn").onclick = ()=>{
+  downloadFile(
+    "schoolcheck-backup.json",
+    JSON.stringify(database,null,2),
+    "application/json"
+  );
+};
+
+$("importBtn").onclick = ()=>{
+  $("fileInput").click();
+};
+
+$("fileInput").onchange = async event=>{
+  const file = event.target.files[0];
+  if(!file) return;
+
+  try {
+    if(file.size > 5*1024*1024){
+      throw new Error("ไฟล์ใหญ่เกิน 5 MB");
+    }
+
+    const data = JSON.parse(await file.text());
+
+    if(
+      !data ||
+      !data.students ||
+      !data.attendance ||
+      typeof data.students !== "object" ||
+      typeof data.attendance !== "object" ||
+      Array.isArray(data.students) ||
+      Array.isArray(data.attendance)
+    ){
+      throw new Error("รูปแบบข้อมูลไม่ถูกต้อง");
+    }
+
+    for(const list of Object.values(data.students)){
+      if(
+        !Array.isArray(list) ||
+        !list.every(s=>
+          typeof s.id === "string" &&
+          typeof s.name === "string" &&
+          Number.isInteger(s.number) &&
+          s.number > 0
+        )
+      ){
+        throw new Error("ข้อมูลนักเรียนไม่ถูกต้อง");
+      }
+    }
+
+    for(const record of Object.values(data.attendance)){
+      if(
+        !record ||
+        typeof record !== "object" ||
+        Array.isArray(record) ||
+        !Object.values(record).every(status=>
+          Object.hasOwn(statusNames,status)
+        )
+      ){
+        throw new Error("ข้อมูลการเช็กชื่อไม่ถูกต้อง");
+      }
+    }
+
+    if(!confirm("นำเข้าข้อมูลแทนข้อมูลเดิมทั้งหมด?")){
+      return;
+    }
+
+    database = data;
+    save();
+    render();
+    alert("นำเข้าข้อมูลสำเร็จ");
+
+  } catch(error){
+    alert("นำเข้าไม่สำเร็จ: "+error.message);
+  }
+
+  event.target.value = "";
+};
+
+$("room").onchange = render;
+$("date").onchange = render;
+$("search").oninput = render;
+
+const today = new Date();
+
+$("date").value = [
+  today.getFullYear(),
+  String(today.getMonth()+1).padStart(2,"0"),
+  String(today.getDate()).padStart(2,"0")
+].join("-");
+
+render();
+</script>
+
+</body>
+</html>
