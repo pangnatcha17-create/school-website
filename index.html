@@ -565,3 +565,549 @@
 
           <article class="news-card">
             <im
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>โรงเรียนตัวอย่างวิทยา | เว็บไซต์โรงเรียน</title>
+  <style>
+    :root {
+      --blue: #1744a0;
+      --navy: #102653;
+      --sky: #eaf4ff;
+      --mint: #12b9a5;
+      --white: #fff;
+      --text: #263751;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Sarabun", "Thonburi", sans-serif;
+      color: var(--text);
+      background: #f5f8fe;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { font: inherit; }
+    button { cursor: pointer; }
+    header {
+      background: white;
+      box-shadow: 0 2px 16px #122d5915;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav {
+      max-width: 1150px;
+      margin: auto;
+      padding: 16px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .logo {
+      width: 46px; height: 46px;
+      display: grid; place-items: center;
+      border-radius: 14px;
+      background: var(--blue);
+      color: white; font-size: 24px;
+    }
+    .brand strong { display: block; color: var(--navy); }
+    .brand small { color: #72829a; }
+    nav { display: flex; flex-wrap: wrap; gap: 18px; }
+    nav a { font-size: 14px; font-weight: bold; }
+    nav a:hover { color: var(--blue); }
+    .btn {
+      display: inline-block;
+      background: var(--blue);
+      color: white;
+      border: 0;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-weight: bold;
+    }
+    .btn:hover { opacity: .88; }
+    .btn-light { background: white; color: var(--blue); }
+    .hero {
+      background: linear-gradient(125deg,#102653,#2159b5 65%,#12b9a5);
+      color: white;
+      padding: 85px 24px;
+    }
+    .hero-inner {
+      max-width: 1100px; margin: auto;
+      display: grid; grid-template-columns: 1.3fr 1fr;
+      align-items: center; gap: 40px;
+    }
+    .hero h1 { font-size: clamp(32px,5vw,56px); line-height: 1.3; margin: 15px 0; }
+    .hero p { line-height: 1.9; opacity: .9; }
+    .tag {
+      background: #ffffff25; border: 1px solid #ffffff55;
+      padding: 9px 16px; border-radius: 30px;
+      display: inline-block; font-size: 13px;
+    }
+    .hero-art {
+      min-height: 280px;
+      border: 1px solid #ffffff55;
+      border-radius: 28px;
+      background: #ffffff20;
+      display: grid; place-items: center;
+      text-align: center; font-size: 90px;
+    }
+    .hero-art span { display: block; font-size: 18px; }
+    .container { max-width: 1150px; margin: auto; padding: 65px 22px; }
+    .section-title { margin-bottom: 28px; }
+    .section-title h2 { color: var(--navy); font-size: 30px; margin: 0 0 8px; }
+    .section-title p { color: #71809a; margin: 0; }
+    .grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
+    .card {
+      background: white; border-radius: 18px;
+      padding: 24px; box-shadow: 0 5px 22px #20365d0c;
+      border: 1px solid #e9eef8;
+    }
+    .card h3 { color: var(--navy); }
+    .card p { line-height: 1.8; color: #66768d; }
+    .card small { color: var(--mint); font-weight: bold; }
+    .iconbox {
+      width: 52px; height: 52px;
+      background: var(--sky);
+      display: grid; place-items: center;
+      border-radius: 14px; font-size: 25px;
+    }
+    .about {
+      background: white;
+    }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 40px; align-items: center;
+    }
+    .about-visual {
+      background: linear-gradient(140deg,#e5f3ff,#c7f6ed);
+      border-radius: 25px; min-height: 280px;
+      display: grid; place-items: center;
+      font-size: 90px;
+    }
+    .about p { line-height: 2; }
+    .search {
+      padding: 13px 16px; border: 1px solid #dce5f3;
+      border-radius: 12px; width: 100%; max-width: 380px;
+      margin-bottom: 25px; background: white;
+    }
+    .date { font-size: 13px; color: #8290a6; }
+    .empty { color: #7d8ca1; }
+    .contact { background: #eaf2ff; }
+    footer {
+      background: var(--navy); color: white;
+      padding: 35px 20px; text-align: center;
+    }
+    footer p { opacity: .75; }
+    .admin-panel {
+      background: white;
+      border-radius: 18px;
+      padding: 25px;
+      border: 1px solid #dce6f5;
+    }
+    .admin-panel input, .admin-panel textarea {
+      width: 100%; padding: 13px; margin: 7px 0 15px;
+      border: 1px solid #dce5f3; border-radius: 10px;
+    }
+    .admin-panel label { font-weight: bold; }
+    .admin-panel textarea { min-height: 110px; }
+    .admin-item {
+      display: flex; justify-content: space-between;
+      align-items: center; gap: 15px;
+      padding: 14px 0; border-bottom: 1px solid #e8eef7;
+    }
+    .danger { background: #d93651; }
+    .notice {
+      background: #fff6df; color: #775319;
+      padding: 14px; border-radius: 10px;
+      margin-bottom: 20px; line-height: 1.7;
+    }
+    @media(max-width: 750px) {
+      .hero-inner, .about-grid, .grid {
+        grid-template-columns: 1fr;
+      }
+      .hero { padding: 55px 22px; }
+      .hero-art { min-height: 200px; }
+      .nav { align-items: flex-start; }
+      nav { gap: 12px; }
+      .container { padding: 45px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="#home" class="brand">
+      <div class="logo">🎓</div>
+      <div>
+        <strong>โรงเรียนตัวอย่างวิทยา</strong>
+        <small>School of Excellence</small>
+      </div>
+    </a>
+    <nav>
+      <a href="#home">หน้าแรก</a>
+      <a href="#about">เกี่ยวกับโรงเรียน</a>
+      <a href="#news">ข่าวสาร</a>
+      <a href="#activities">กิจกรรม</a>
+      <a href="#contact">ติดต่อ</a>
+      <a href="#admin">ผู้ดูแล</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div>
+      <span class="tag">WELCOME TO OUR SCHOOL</span>
+      <h1>ยินดีต้อนรับสู่<br>โรงเรียนตัวอย่างวิทยา</h1>
+      <p>
+        มุ่งมั่นพัฒนาคุณภาพการศึกษา ส่งเสริมการเรียนรู้
+        สร้างคนดี มีคุณธรรม ก้าวทันเทคโนโลยี
+        เพื่ออนาคตที่สดใสของนักเรียนทุกคน
+      </p>
+      <a href="#news" class="btn btn-light">ดูข่าวประชาสัมพันธ์ →</a>
+    </div>
+    <div class="hero-art">
+      <div>🏫<span>พื้นที่แห่งการเรียนรู้และความสุข</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="container">
+  <div class="grid">
+    <div class="card">
+      <div class="iconbox">📚</div>
+      <h3>การศึกษาคุณภาพ</h3>
+      <p>ส่งเสริมความรู้และทักษะที่จำเป็นสำหรับโลกยุคใหม่</p>
+    </div>
+    <div class="card">
+      <div class="iconbox">👩‍🏫</div>
+      <h3>ครูและบุคลากร</h3>
+      <p>ส่งเสริมการเรียนรู้ด้วยความใส่ใจและการพัฒนาอย่างต่อเนื่อง</p>
+    </div>
+    <div class="card">
+      <div class="iconbox">🌱</div>
+      <h3>เติบโตอย่างมีคุณภาพ</h3>
+      <p>พัฒนาผู้เรียนทั้งด้านวิชาการ คุณธรรม และการใช้ชีวิต</p>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="container about-grid">
+    <div class="about-visual">🎒</div>
+    <div>
+      <div class="section-title">
+        <h2>เกี่ยวกับโรงเรียน</h2>
+        <p>ABOUT OUR SCHOOL</p>
+      </div>
+      <p>
+        โรงเรียนตัวอย่างวิทยา เป็นสถานศึกษาตัวอย่าง
+        ที่มุ่งเน้นการจัดการเรียนรู้อย่างสร้างสรรค์
+        ส่งเสริมความสามารถของผู้เรียนตามศักยภาพ
+        และสนับสนุนการใช้เทคโนโลยีเพื่อการศึกษา
+      </p>
+      <h3>วิสัยทัศน์</h3>
+      <p>
+        พัฒนาผู้เรียนให้มีความรู้ คู่คุณธรรม
+        มีทักษะชีวิตและพร้อมก้าวสู่สังคมแห่งอนาคต
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="container" id="news">
+  <div class="section-title">
+    <h2>📰 ข่าวประชาสัมพันธ์</h2>
+    <p>ติดตามข่าวสารและประกาศล่าสุดของโรงเรียน</p>
+  </div>
+  <input class="search" id="searchNews"
+    placeholder="🔎 ค้นหาข่าวประชาสัมพันธ์..."
+    oninput="renderNews()">
+  <div class="grid" id="newsList"></div>
+</section>
+
+<section class="container" id="activities">
+  <div class="section-title">
+    <h2>📅 กิจกรรมโรงเรียน</h2>
+    <p>กิจกรรมการเรียนรู้และกิจกรรมสร้างสรรค์</p>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <div class="iconbox">🎨</div>
+      <h3>กิจกรรมศิลปะสร้างสรรค์</h3>
+      <p>เปิดโอกาสให้นักเรียนแสดงความคิดสร้างสรรค์</p>
+    </div>
+    <div class="card">
+      <div class="iconbox">🏃</div>
+      <h3>กิจกรรมกีฬาและสุขภาพ</h3>
+      <p>ส่งเสริมสุขภาพและความสามัคคีของนักเรียน</p>
+    </div>
+    <div class="card">
+      <div class="iconbox">💻</div>
+      <h3>กิจกรรมเทคโนโลยี</h3>
+      <p>พัฒนาทักษะดิจิทัลและการเรียนรู้ในศตวรรษที่ 21</p>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-title">
+      <h2>📍 ติดต่อโรงเรียน</h2>
+      <p>ช่องทางการติดต่อและสอบถามข้อมูล</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <h3>🏫 ที่อยู่</h3>
+        <p>กรุณาระบุที่อยู่โรงเรียน</p>
+      </div>
+      <div class="card">
+        <h3>☎️ โทรศัพท์</h3>
+        <p>กรุณาระบุเบอร์โทรศัพท์</p>
+      </div>
+      <div class="card">
+        <h3>✉️ อีเมล</h3>
+        <p>กรุณาระบุอีเมลโรงเรียน</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container" id="admin">
+  <div class="section-title">
+    <h2>⚙️ ระบบจัดการเว็บไซต์</h2>
+    <p>ตัวอย่างระบบจัดการข่าวประชาสัมพันธ์</p>
+  </div>
+  <div class="admin-panel">
+    <div class="notice">
+      ⚠️ ระบบนี้เป็นตัวอย่างสำหรับทดลองใช้งาน
+      ไม่ใช่ระบบหลังบ้านที่มีการยืนยันตัวตน
+      ข้อมูลจะถูกบันทึกในเบราว์เซอร์ของเครื่องนี้เท่านั้น
+      และไม่เผยแพร่ให้ผู้เข้าชมคนอื่นเห็น
+    </div>
+
+    <h3>เพิ่มข่าวประชาสัมพันธ์</h3>
+    <form id="newsForm">
+      <label for="newsTitle">หัวข้อข่าว</label>
+      <input id="newsTitle" required maxlength="120"
+        placeholder="กรอกหัวข้อข่าว">
+
+      <label for="newsDetail">รายละเอียดข่าว</label>
+      <textarea id="newsDetail" required
+        maxlength="3000"
+        placeholder="กรอกรายละเอียดข่าว"></textarea>
+
+      <button type="submit" class="btn">+ เพิ่มข่าว</button>
+    </form>
+
+    <h3>รายการข่าวที่จัดการได้</h3>
+    <div id="adminNewsList"></div>
+
+    <button class="btn" onclick="exportNews()">
+      สำรองข้อมูลข่าว JSON
+    </button>
+  </div>
+</section>
+
+<footer>
+  <h3>🎓 โรงเรียนตัวอย่างวิทยา</h3>
+  <p>เรียนรู้อย่างสร้างสรรค์ เติบโตอย่างมีคุณภาพ</p>
+  <p>© 2026 โรงเรียนตัวอย่างวิทยา</p>
+</footer>
+
+<script>
+  const storageKey = "sample_school_news_v1";
+
+  const defaultNews = [
+    {
+      id: 1,
+      title: "ยินดีต้อนรับสู่เว็บไซต์โรงเรียน",
+      detail: "เว็บไซต์ประชาสัมพันธ์โรงเรียนตัวอย่างวิทยา พร้อมให้บริการข้อมูลข่าวสารและกิจกรรมต่าง ๆ",
+      date: "2026-10-21"
+    },
+    {
+      id: 2,
+      title: "ประชาสัมพันธ์กิจกรรมการเรียนรู้",
+      detail: "ติดตามข้อมูลกิจกรรมส่งเสริมทักษะและการเรียนรู้ของนักเรียนได้ทางเว็บไซต์โรงเรียน",
+      date: "2026-10-20"
+    },
+    {
+      id: 3,
+      title: "ส่งเสริมการใช้เทคโนโลยีเพื่อการศึกษา",
+      detail: "สนับสนุนการใช้สื่อดิจิทัลและนวัตกรรมในการจัดการเรียนการสอน",
+      date: "2026-10-19"
+    }
+  ];
+
+  function loadNews() {
+    try {
+      const saved = localStorage.getItem(storageKey);
+      if (!saved) return [...defaultNews];
+      const parsed = JSON.parse(saved);
+      return Array.isArray(parsed) ? parsed : [...defaultNews];
+    } catch (error) {
+      return [...defaultNews];
+    }
+  }
+
+  let news = loadNews();
+
+  function saveNews() {
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(news));
+      return true;
+    } catch (error) {
+      alert("ไม่สามารถบันทึกข้อมูลในเบราว์เซอร์ได้");
+      return false;
+    }
+  }
+
+  function createElement(tag, className, content) {
+    const element = document.createElement(tag);
+    if (className) element.className = className;
+    if (content !== undefined) element.textContent = content;
+    return element;
+  }
+
+  function renderNews() {
+    const container = document.getElementById("newsList");
+    const query = document.getElementById("searchNews")
+      .value.toLowerCase().trim();
+
+    container.replaceChildren();
+
+    const filtered = news.filter(item =>
+      item.title.toLowerCase().includes(query) ||
+      item.detail.toLowerCase().includes(query)
+    );
+
+    if (!filtered.length) {
+      container.appendChild(
+        createElement("p", "empty", "ไม่พบข่าวประชาสัมพันธ์")
+      );
+      return;
+    }
+
+    filtered.forEach(item => {
+      const card = createElement("article", "card");
+      const date = createElement("small", "", item.date);
+      const title = createElement("h3", "", item.title);
+      const detail = createElement("p", "", item.detail);
+      card.append(date, title, detail);
+      container.appendChild(card);
+    });
+  }
+
+  function renderAdmin() {
+    const container = document.getElementById("adminNewsList");
+    container.replaceChildren();
+
+    news.forEach(item => {
+      const row = createElement("div", "admin-item");
+      const title = createElement("span", "", item.title);
+      const actions = createElement("div");
+
+      const editButton = createElement("button", "btn", "แก้ไข");
+      editButton.type = "button";
+      editButton.style.marginRight = "8px";
+      editButton.addEventListener("click", () => editNews(item.id));
+
+      const deleteButton = createElement("button", "btn danger", "ลบ");
+      deleteButton.type = "button";
+      deleteButton.addEventListener("click", () => deleteNews(item.id));
+
+      actions.append(editButton, deleteButton);
+      row.append(title, actions);
+      container.appendChild(row);
+    });
+  }
+
+  document.getElementById("newsForm")
+    .addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const title = document.getElementById("newsTitle").value.trim();
+      const detail = document.getElementById("newsDetail").value.trim();
+
+      if (!title || !detail) {
+        alert("กรุณากรอกข้อมูลให้ครบ");
+        return;
+      }
+
+      news.unshift({
+        id: Date.now(),
+        title: title,
+        detail: detail,
+        date: new Date().toLocaleDateString("en-CA")
+      });
+
+      if (saveNews()) {
+        this.reset();
+        renderNews();
+        renderAdmin();
+        alert("เพิ่มข่าวเรียบร้อยแล้ว (เฉพาะเบราว์เซอร์นี้)");
+      }
+    });
+
+  function deleteNews(id) {
+    if (!confirm("ต้องการลบข่าวนี้ใช่หรือไม่?")) return;
+    news = news.filter(item => item.id !== id);
+    if (saveNews()) {
+      renderNews();
+      renderAdmin();
+    }
+  }
+
+  function editNews(id) {
+    const item = news.find(entry => entry.id === id);
+    if (!item) return;
+
+    const title = prompt("แก้ไขหัวข้อข่าว", item.title);
+    if (title === null) return;
+
+    const detail = prompt("แก้ไขรายละเอียดข่าว", item.detail);
+    if (detail === null) return;
+
+    if (!title.trim() || !detail.trim()) {
+      alert("ข้อมูลต้องไม่ว่าง");
+      return;
+    }
+
+    item.title = title.trim().slice(0, 120);
+    item.detail = detail.trim().slice(0, 3000);
+
+    if (saveNews()) {
+      renderNews();
+      renderAdmin();
+    }
+  }
+
+  function exportNews() {
+    const content = JSON.stringify(news, null, 2);
+    const blob = new Blob([content], {type: "application/json"});
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "school-news-backup.json";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  renderNews();
+  renderAdmin();
+</script>
+
+</body>
+</html>
