@@ -1,1 +1,241 @@
-<!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>เว็บไซต์โรงเรียน</title><link rel="stylesheet" href="/style.css"></head><body><header><div class="brand"><div class="logo">✦</div><div><strong id="brand">โรงเรียนตัวอย่างวิทยา</strong><small>School Information Portal</small></div></div><nav><a href="#home">หน้าแรก</a><a href="#about">เกี่ยวกับเรา</a><a href="#news">ข่าวสาร</a><a href="#events">กิจกรรม</a><a href="#staff">บุคลากร</a><a href="#gallery">แกลเลอรี</a><a href="#contact">ติดต่อ</a></nav><button id="adminBtn" class="outline">ผู้ดูแลระบบ</button></header><main><section class="hero" id="home"><div class="heroText"><span class="eyebrow">WELCOME TO OUR SCHOOL</span><h1 id="heroName">โรงเรียนตัวอย่างวิทยา</h1><p id="motto">เรียนรู้คู่คุณธรรม ก้าวทันเทคโนโลยี</p><a class="primary" href="#news">สำรวจข่าวสารล่าสุด →</a></div><div class="heroArt"><div class="sun">☀</div><div class="building"><div class="roof"></div><div class="windows">▦ ▦ ▦<br>▦ ▣ ▦</div></div><div class="ground"></div></div></section><div class="stats"><div><strong>01</strong><span>เว็บไซต์โรงเรียน</span></div><div><strong>24/7</strong><span>เข้าถึงข่าวสาร</span></div><div><strong>100%</strong><span>รองรับมือถือ</span></div></div><section id="about" class="section"><div class="sectionHead"><span>ABOUT US</span><h2>รู้จักโรงเรียนของเรา</h2></div><div class="aboutGrid"><article class="panel"><h3>เกี่ยวกับโรงเรียน</h3><p id="aboutText"></p></article><article class="panel"><h3>วิสัยทัศน์</h3><p id="vision"></p></article><article class="panel"><h3>พันธกิจ</h3><p id="mission"></p></article></div></section><section id="news" class="section tint"><div class="sectionHead"><span>NEWS & UPDATES</span><h2>ข่าวประชาสัมพันธ์</h2></div><div id="newsList" class="cards"></div></section><section id="events" class="section"><div class="sectionHead"><span>CALENDAR</span><h2>ปฏิทินกิจกรรม</h2></div><div id="eventsList" class="cards"></div></section><section id="staff" class="section tint"><div class="sectionHead"><span>OUR PEOPLE</span><h2>บุคลากร</h2></div><div id="staffList" class="cards"></div></section><section id="gallery" class="section"><div class="sectionHead"><span>GALLERY</span><h2>ภาพกิจกรรม</h2></div><div id="galleryList" class="cards"></div></section><section id="contact" class="contact"><h2>ติดต่อโรงเรียน</h2><p id="contactText"></p></section></main><footer>© <span id="year"></span> <span id="footerName"></span> · School Website</footer><dialog id="loginDialog"><form id="loginForm" class="dialogForm"><h2>เข้าสู่ระบบผู้ดูแล</h2><label>ชื่อผู้ใช้<input name="username" value="admin" required autocomplete="username"></label><label>รหัสผ่าน<input name="password" type="password" required autocomplete="current-password"></label><p id="loginError" class="error"></p><div class="actions"><button type="button" id="closeLogin" class="outline">ยกเลิก</button><button class="primary">เข้าสู่ระบบ</button></div></form></dialog><dialog id="adminDialog" class="adminDialog"><div class="adminHeader"><h2>⚙ จัดการเว็บไซต์</h2><div><button id="logout" class="outline">ออกจากระบบ</button><button id="closeAdmin" class="outline">ปิด</button></div></div><div class="adminBody"><h3>ข้อมูลโรงเรียน</h3><form id="schoolForm" class="editor"></form><h3>จัดการเนื้อหา</h3><label>เลือกหมวด<select id="group"><option value="news">ข่าวประชาสัมพันธ์</option><option value="events">กิจกรรม</option><option value="staff">บุคลากร</option><option value="gallery">แกลเลอรี</option></select></label><form id="itemForm" class="editor"><input type="hidden" name="id"><label>หัวข้อ<input name="title" required maxlength="150"></label><label>รายละเอียด<textarea name="detail" rows="3"></textarea></label><label>วันที่<input name="date" type="date"></label><div class="actions"><button class="primary">บันทึกรายการ</button><button type="button" id="clearItem" class="outline">ล้างฟอร์ม</button></div></form><div id="adminItems"></div></div></dialog><script src="/app.js"></script></body></html>
+
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ระบบเช็กชื่อนักเรียนออนไลน์</title>
+<style>
+:root{font-family:system-ui,'Tahoma',sans-serif;color:#18243a;background:#f3f6fb}*{box-sizing:border-box}body{margin:0}header{background:linear-gradient(110deg,#193b77,#387bd6);color:white;padding:28px max(20px,calc((100vw - 1100px)/2))}h1{margin:0 0 6px;font-size:26px}header p{margin:0;opacity:.85}main{max-width:1100px;margin:24px auto;padding:0 16px}.panel{background:white;border:1px solid #e2e9f3;border-radius:16px;padding:20px;margin-bottom:18px;box-shadow:0 6px 24px #1d3c7010}.toolbar{display:flex;flex-wrap:wrap;gap:12px;align-items:end}.field{display:flex;flex-direction:column;gap:5px;flex:1;min-width:155px}label{font-weight:650;font-size:13px}input,select,button{font:inherit;border-radius:9px;padding:10px 12px;border:1px solid #ccd7e5}button{cursor:pointer;border:0;background:#2563eb;color:white;font-weight:650}button.secondary{background:#e9f0fc;color:#214d92}button.danger{background:#fee2e2;color:#b91c1c}button:disabled{opacity:.55;cursor:not-allowed}.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.stat{border-radius:12px;padding:15px;background:#f1f5fd}.stat strong{font-size:25px;display:block}.stat span{font-size:12px;color:#50617b}.row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}h2{font-size:19px;margin:0 0 15px}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:12px 10px;border-bottom:1px solid #e8edf5}th{font-size:13px;color:#52627c;background:#f8faff}.scroll{overflow-x:auto}.status{display:flex;gap:5px;flex-wrap:wrap}.status button{padding:7px 10px;background:#e9eef7;color:#40506b;font-size:12px}.status button.active.present{background:#dcfce7;color:#166534}.status button.active.late{background:#fef3c7;color:#92400e}.status button.active.absent{background:#fee2e2;color:#991b1b}.status button.active.leave{background:#e0e7ff;color:#3730a3}.muted{color:#64748b;font-size:13px}.hide{display:none}footer{text-align:center;padding:16px;color:#718096;font-size:12px}@media(max-width:650px){.stats{grid-template-columns:repeat(2,1fr)}.panel{padding:14px}th,td{padding:9px 6px;font-size:13px}}
+</style>
+</head>
+<body>
+<header>
+<h1>📋 ระบบเช็กชื่อนักเรียนออนไลน์</h1>
+<p>ระบบบันทึกการเข้าเรียนสำหรับคุณครู • เวอร์ชันทดลอง</p>
+</header>
+<main>
+<section class="panel">
+<div class="toolbar">
+<div class="field">
+<label for="classroom">ห้องเรียน</label>
+<select id="classroom">
+<option>ม.1/1</option>
+<option>ม.1/2</option>
+<option>ม.2/1</option>
+<option>ม.3/1</option>
+<option>ม.4/1</option>
+<option>ม.5/1</option>
+<option>ม.6/1</option>
+</select>
+</div>
+<div class="field">
+<label for="date">วันที่เช็กชื่อ</label>
+<input type="date" id="date">
+</div>
+<div class="field">
+<label for="search">ค้นหานักเรียน</label>
+<input id="search" placeholder="ชื่อ หรือ เลขที่">
+</div>
+<button id="export">ดาวน์โหลด CSV</button>
+</div>
+</section>
+<section class="panel">
+<h2>สรุปการเข้าเรียน</h2>
+<div class="stats">
+<div class="stat"><strong id="total">0</strong><span>นักเรียนทั้งหมด</span></div>
+<div class="stat"><strong id="present">0</strong><span>มาเรียน</span></div>
+<div class="stat"><strong id="late">0</strong><span>มาสาย</span></div>
+<div class="stat"><strong id="absent">0</strong><span>ขาดเรียน</span></div>
+<div class="stat"><strong id="leave">0</strong><span>ลา</span></div>
+</div>
+</section>
+<section class="panel">
+<div class="row">
+<h2>รายชื่อนักเรียน</h2>
+<div class="row">
+<button class="secondary" id="allPresent">เช็กมาทั้งห้อง</button>
+<button class="secondary" id="add">+ เพิ่มนักเรียน</button>
+</div>
+</div>
+<p class="muted">เลือกสถานะเพื่อบันทึกอัตโนมัติ • ข้อมูลจะแยกตามห้องเรียนและวันที่</p>
+<div class="scroll">
+<table>
+<thead>
+<tr>
+<th>เลขที่</th>
+<th>ชื่อ–นามสกุล</th>
+<th>สถานะ</th>
+<th>จัดการ</th>
+</tr>
+</thead>
+<tbody id="students"></tbody>
+</table>
+</div>
+<p class="muted" id="empty"></p>
+</section>
+<section class="panel">
+<div class="row">
+<div>
+<h2>สำรองและกู้คืนข้อมูล</h2>
+<p class="muted">ข้อมูลเก็บในเบราว์เซอร์เครื่องนี้ ไม่ได้ซิงก์ข้ามอุปกรณ์</p>
+</div>
+<div class="row">
+<button id="backup" class="secondary">สำรอง JSON</button>
+<button id="restore" class="secondary">นำเข้า JSON</button>
+<input id="restoreFile" type="file" accept="application/json,.json" class="hide">
+</div>
+</div>
+</section>
+</main>
+<footer>ระบบสาธิต • ห้ามใช้ข้อมูลนักเรียนจริงโดยไม่มีมาตรการความปลอดภัยและการคุ้มครองข้อมูลส่วนบุคคล</footer>
+<script>
+'use strict';
+const $=id=>document.getElementById(id),KEY='attendance_demo_v1';
+let db;
+try{db=JSON.parse(localStorage.getItem(KEY))||{rosters:{},records:{}}}
+catch{db={rosters:{},records:{}}}
+if(!db.rosters||typeof db.rosters!=='object')db.rosters={};
+if(!db.records||typeof db.records!=='object')db.records={};
+const sample=['เด็กชายธนกฤต ใจดี','เด็กหญิงพิมพ์ชนก สดใส','เด็กชายณัฐวุฒิ เรียนดี','เด็กหญิงกัญญารัตน์ สุขใจ','เด็กชายภาคิน ตั้งใจ'];
+if(!Object.keys(db.rosters).length){
+db.rosters['ม.1/1']=sample.map((name,i)=>({id:crypto.randomUUID(),number:i+1,name}));
+save()
+}
+function save(){localStorage.setItem(KEY,JSON.stringify(db))}
+function key(){return $('classroom').value+'|'+$('date').value}
+function roster(){return db.rosters[$('classroom').value]||[]}
+function records(){return db.records[key()]||{}}
+function setStatus(id,status){
+if(!db.records[key()])db.records[key()]={};
+db.records[key()][id]=status;
+save();
+render()
+}
+function render(){
+let list=roster(),rec=records(),q=$('search').value.trim().toLowerCase();
+$('total').textContent=list.length;
+for(const s of ['present','late','absent','leave'])
+$(s).textContent=list.filter(x=>rec[x.id]===s).length;
+const tbody=$('students');
+tbody.replaceChildren();
+const names={present:'มาเรียน',late:'มาสาย',absent:'ขาดเรียน',leave:'ลา'};
+for(const student of list.filter(x=>x.name.toLowerCase().includes(q)||String(x.number).includes(q)).sort((a,b)=>a.number-b.number)){
+const tr=document.createElement('tr');
+const number=document.createElement('td');
+number.textContent=student.number;
+const name=document.createElement('td');
+name.textContent=student.name;
+const status=document.createElement('td');
+const group=document.createElement('div');
+group.className='status';
+for(const [code,label]of Object.entries(names)){
+const btn=document.createElement('button');
+btn.textContent=label;
+btn.className=(rec[student.id]===code?'active '+code:'');
+btn.onclick=()=>setStatus(student.id,code);
+group.append(btn)
+}
+status.append(group);
+const actions=document.createElement('td');
+const edit=document.createElement('button');
+edit.textContent='แก้ไข';
+edit.className='secondary';
+edit.onclick=()=>editStudent(student);
+const del=document.createElement('button');
+del.textContent='ลบ';
+del.className='danger';
+del.style.marginLeft='5px';
+del.onclick=()=>deleteStudent(student);
+actions.append(edit,del);
+tr.append(number,name,status,actions);
+tbody.append(tr)
+}
+$('empty').textContent=tbody.children.length?'': 'ไม่พบรายชื่อนักเรียน — กด “เพิ่มนักเรียน” เพื่อเริ่มต้น'
+}
+function editStudent(student){
+const name=prompt('ชื่อ–นามสกุล',student.name);
+if(name===null)return;
+if(!name.trim())return alert('กรุณากรอกชื่อ');
+const no=prompt('เลขที่',student.number);
+if(no===null)return;
+const num=Number(no);
+if(!Number.isInteger(num)||num<1)return alert('เลขที่ต้องเป็นจำนวนเต็มบวก');
+if(roster().some(s=>s.id!==student.id&&s.number===num))return alert('เลขที่ซ้ำ');
+student.name=name.trim();
+student.number=num;
+save();
+render()
+}
+function deleteStudent(student){
+if(!confirm('ลบ '+student.name+' ออกจากห้องนี้?'))return;
+db.rosters[$('classroom').value]=roster().filter(x=>x.id!==student.id);
+for(const rec of Object.values(db.records))delete rec[student.id];
+save();
+render()
+}
+$('add').onclick=()=>{
+const name=prompt('ชื่อ–นามสกุลนักเรียน');
+if(name===null)return;
+if(!name.trim())return alert('กรุณากรอกชื่อ');
+const next=Math.max(0,...roster().map(x=>x.number))+1;
+const no=prompt('เลขที่',next);
+if(no===null)return;
+const num=Number(no);
+if(!Number.isInteger(num)||num<1||roster().some(x=>x.number===num))return alert('เลขที่ไม่ถูกต้องหรือซ้ำ');
+if(!db.rosters[$('classroom').value])db.rosters[$('classroom').value]=[];
+db.rosters[$('classroom').value].push({id:crypto.randomUUID(),number:num,name:name.trim()});
+save();
+render()
+};
+$('allPresent').onclick=()=>{
+if(!confirm('ตั้งสถานะทุกคนเป็น “มาเรียน” สำหรับวันนี้?'))return;
+if(!db.records[key()])db.records[key()]={};
+for(const s of roster())db.records[key()][s.id]='present';
+save();
+render()
+};
+function download(name,content,type){
+const a=document.createElement('a'),url=URL.createObjectURL(new Blob([content],{type}));
+a.href=url;
+a.download=name;
+a.click();
+setTimeout(()=>URL.revokeObjectURL(url),1000)
+}
+function csv(v){return '"'+String(v??'').replaceAll('"','""')+'"'}
+$('export').onclick=()=>{
+const rec=records(),labels={present:'มาเรียน',late:'มาสาย',absent:'ขาดเรียน',leave:'ลา'};
+const lines=[['วันที่','ห้องเรียน','เลขที่','ชื่อ-นามสกุล','สถานะ'],...roster().sort((a,b)=>a.number-b.number).map(s=>[$('date').value,$('classroom').value,s.number,s.name,labels[rec[s.id]]||'ยังไม่เช็ก'])];
+download('attendance-'+$('date').value+'.csv','\uFEFF'+lines.map(row=>row.map(csv).join(',')).join('\r\n'),'text/csv;charset=utf-8')
+};
+$('backup').onclick=()=>download('attendance-backup.json',JSON.stringify(db,null,2),'application/json');
+$('restore').onclick=()=>$('restoreFile').click();
+$('restoreFile').onchange=async e=>{
+const file=e.target.files[0];
+if(!file)return;
+try{
+const incoming=JSON.parse(await file.text());
+if(!incoming||typeof incoming.rosters!=='object'||!incoming.rosters||typeof incoming.records!=='object'||!incoming.records||Array.isArray(incoming.rosters)||Array.isArray(incoming.records))throw Error('รูปแบบไฟล์ไม่ถูกต้อง');
+for(const list of Object.values(incoming.rosters)){
+if(!Array.isArray(list)||!list.every(x=>typeof x.id==='string'&&typeof x.name==='string'&&Number.isInteger(x.number)))throw Error('ข้อมูลนักเรียนไม่ถูกต้อง')
+}
+for(const rec of Object.values(incoming.records)){
+if(!rec||typeof rec!=='object'||Array.isArray(rec)||!Object.values(rec).every(s=>['present','late','absent','leave'].includes(s)))throw Error('ข้อมูลสถานะไม่ถูกต้อง')
+}
+if(!confirm('นำเข้าข้อมูลนี้แทนข้อมูลเดิมทั้งหมด?'))return;
+db=incoming;
+save();
+render();
+alert('นำเข้าสำเร็จ')
+}catch(err){alert('นำเข้าไม่สำเร็จ: '+err.message)}
+finally{e.target.value=''}
+};
+$('classroom').onchange=render;
+$('date').onchange=render;
+$('search').oninput=render;
+const now=new Date();
+$('date').value=[now.getFullYear(),String(now.getMonth()+1).padStart(2,'0'),String(now.getDate()).padStart(2,'0')].join('-');
+render();
+</script>
+</body>
+</html>
