@@ -1111,3 +1111,640 @@
 
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>โรงเรียนปัญญาธาราวิทยา</title>
+
+<style>
+:root {
+  --blue: #174b91;
+  --dark: #102d59;
+  --mint: #15b8a6;
+  --bg: #f3f7fd;
+  --text: #283a52;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: Thonburi, "Noto Sans Thai", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+a { text-decoration: none; color: inherit; }
+button, input, textarea { font: inherit; }
+button { cursor: pointer; }
+.container { max-width: 1150px; margin: auto; padding: 0 22px; }
+
+header {
+  background: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 3px 15px #12345a18;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 80px;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--dark);
+  font-size: 19px;
+  font-weight: bold;
+}
+.logo {
+  background: #e7f0ff;
+  border-radius: 15px;
+  padding: 12px;
+  font-size: 26px;
+}
+.brand small {
+  display: block;
+  font-size: 11px;
+  color: #75849b;
+}
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 17px;
+}
+nav a { font-size: 13px; font-weight: bold; }
+nav a:hover { color: var(--blue); }
+
+.hero {
+  background: linear-gradient(120deg,#102d59,#2266bd,#12aa9d);
+  color: white;
+  padding: 85px 0;
+}
+.hero-layout {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  align-items: center;
+  gap: 35px;
+}
+.hero h1 {
+  font-size: clamp(30px,4vw,50px);
+  line-height: 1.4;
+}
+.hero p { line-height: 2; color: #e5efff; }
+.hero-picture {
+  background: #ffffff20;
+  border: 1px solid #ffffff50;
+  border-radius: 28px;
+  padding: 65px 20px;
+  text-align: center;
+  font-size: 85px;
+}
+.hero-picture small {
+  display: block;
+  font-size: 17px;
+}
+.btn {
+  display: inline-block;
+  border: none;
+  background: var(--blue);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: bold;
+}
+.btn:hover { opacity: .88; }
+.btn-white { background: white; color: var(--blue); }
+.btn-red { background: #d43e55; }
+
+section { padding: 65px 0; scroll-margin-top: 110px; }
+.section-title { margin-bottom: 28px; }
+.section-title h2 {
+  color: var(--dark);
+  font-size: 29px;
+  margin: 0 0 8px;
+}
+.section-title p { color: #718199; margin: 0; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 22px;
+}
+.card {
+  background: white;
+  border: 1px solid #e2eaf6;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px #142e510a;
+}
+.card-content { padding: 23px; }
+.card h3 { color: var(--dark); line-height: 1.5; }
+.card p { line-height: 1.8; color: #63748a; }
+.picture {
+  height: 165px;
+  background: linear-gradient(130deg,#e2efff,#d4f6ee);
+  display: grid;
+  place-items: center;
+  font-size: 65px;
+}
+.tag {
+  background: #e7f1ff;
+  color: var(--blue);
+  padding: 5px 12px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: bold;
+}
+.about, .activities { background: white; }
+.about-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+.about-art {
+  background: linear-gradient(135deg,#dceaff,#c6f3e9);
+  border-radius: 25px;
+  min-height: 290px;
+  display: grid;
+  place-items: center;
+  font-size: 100px;
+}
+.about p { line-height: 2; }
+.search {
+  width: 100%;
+  max-width: 380px;
+  padding: 13px 15px;
+  border: 1px solid #d4e0f0;
+  border-radius: 12px;
+  margin-bottom: 25px;
+}
+.contact { background: #e8f0fc; }
+.admin-box {
+  background: white;
+  padding: 28px;
+  border: 1px solid #e0e8f4;
+  border-radius: 20px;
+}
+.admin-box input, .admin-box textarea {
+  display: block;
+  width: 100%;
+  border: 1px solid #d5e0f0;
+  border-radius: 10px;
+  padding: 13px;
+  margin: 8px 0 17px;
+}
+.admin-box textarea { min-height: 110px; }
+.admin-box label { font-weight: bold; }
+.warning {
+  background: #fff5db;
+  color: #80571a;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  line-height: 1.8;
+}
+.admin-row {
+  padding: 15px 0;
+  border-bottom: 1px solid #e3eaf5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+.actions { display: flex; gap: 8px; }
+footer {
+  background: var(--dark);
+  color: white;
+  padding: 38px 20px;
+  text-align: center;
+}
+footer p { color: #c4d2e8; }
+
+@media(max-width: 800px) {
+  .hero-layout, .about-layout { grid-template-columns: 1fr; }
+  .grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .navbar { padding: 15px 0; }
+}
+@media(max-width: 550px) {
+  .grid { grid-template-columns: 1fr; }
+  .hero { padding: 55px 0; }
+  section { padding: 45px 0; }
+  .admin-row { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="container navbar">
+    <a href="#home" class="brand">
+      <span class="logo">🏫</span>
+      <span>
+        โรงเรียนปัญญาธาราวิทยา
+        <small>สร้างปัญญา พัฒนาความคิด ก้าวทันโลกอนาคต</small>
+      </span>
+    </a>
+    <nav>
+      <a href="#home">หน้าแรก</a>
+      <a href="#about">เกี่ยวกับโรงเรียน</a>
+      <a href="#news">ข่าวสาร</a>
+      <a href="#activities">กิจกรรม</a>
+      <a href="#staff">บุคลากร</a>
+      <a href="#contact">ติดต่อ</a>
+      <a href="#admin">จัดการเว็บ</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section class="hero" id="home">
+  <div class="container hero-layout">
+    <div>
+      <p>WELCOME TO OUR SCHOOL</p>
+      <h1>เรียนรู้อย่างสร้างสรรค์<br>เติบโตอย่างมีคุณภาพ</h1>
+      <p>
+        ยินดีต้อนรับสู่เว็บไซต์โรงเรียนปัญญาธาราวิทยา
+        ศูนย์รวมข่าวสาร กิจกรรม และข้อมูลสำคัญ
+        สำหรับนักเรียน ผู้ปกครอง และชุมชน
+      </p>
+      <a href="#news" class="btn btn-white">ติดตามข่าวล่าสุด →</a>
+    </div>
+    <div class="hero-picture">
+      🏫
+      <small>พื้นที่แห่งโอกาสและการเรียนรู้</small>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="container about-layout">
+    <div class="about-art">🎓</div>
+    <div>
+      <div class="section-title">
+        <h2>เกี่ยวกับโรงเรียน</h2>
+        <p>ABOUT OUR SCHOOL</p>
+      </div>
+      <p>
+        โรงเรียนปัญญาธาราวิทยาเป็นชื่อสถานศึกษา
+        ที่ใช้ในเว็บไซต์ต้นแบบนี้ มุ่งส่งเสริมการเรียนรู้
+        พัฒนาความคิดสร้างสรรค์ คุณธรรม
+        และทักษะที่จำเป็นในโลกยุคใหม่
+      </p>
+      <h3>วิสัยทัศน์ (ตัวอย่าง)</h3>
+      <p>
+        พัฒนาผู้เรียนให้มีความรู้ คู่คุณธรรม
+        ใช้เทคโนโลยีอย่างสร้างสรรค์
+        และอยู่ร่วมกับผู้อื่นอย่างมีความสุข
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="news">
+  <div class="container">
+    <div class="section-title">
+      <h2>📰 ข่าวประชาสัมพันธ์</h2>
+      <p>ติดตามข่าวสารและประกาศของโรงเรียน</p>
+    </div>
+    <input class="search" id="searchNews"
+      placeholder="🔎 ค้นหาข่าวประชาสัมพันธ์...">
+    <div class="grid" id="newsList"></div>
+  </div>
+</section>
+
+<section class="activities" id="activities">
+  <div class="container">
+    <div class="section-title">
+      <h2>📅 กิจกรรมโรงเรียน</h2>
+      <p>กิจกรรมส่งเสริมการเรียนรู้และพัฒนาศักยภาพ</p>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <div class="picture">🎨</div>
+        <div class="card-content">
+          <span class="tag">สร้างสรรค์</span>
+          <h3>ศิลปะและวัฒนธรรม</h3>
+          <p>เปิดพื้นที่ให้นักเรียนแสดงความสามารถ</p>
+        </div>
+      </article>
+      <article class="card">
+        <div class="picture">🏃</div>
+        <div class="card-content">
+          <span class="tag">สุขภาพ</span>
+          <h3>กีฬาและนันทนาการ</h3>
+          <p>สร้างความสามัคคีและส่งเสริมสุขภาพ</p>
+        </div>
+      </article>
+      <article class="card">
+        <div class="picture">💻</div>
+        <div class="card-content">
+          <span class="tag">เทคโนโลยี</span>
+          <h3>การเรียนรู้ดิจิทัล</h3>
+          <p>พัฒนาทักษะเทคโนโลยีสำหรับอนาคต</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="staff">
+  <div class="container">
+    <div class="section-title">
+      <h2>👩‍🏫 บุคลากรของเรา</h2>
+      <p>ข้อมูลตัวอย่างสำหรับเพิ่มเติมรายชื่อบุคลากร</p>
+    </div>
+    <div class="grid">
+      <div class="card card-content">
+        <h3>👩‍💼 ฝ่ายบริหาร</h3>
+        <p>ข้อมูลผู้บริหารสถานศึกษา</p>
+      </div>
+      <div class="card card-content">
+        <h3>👨‍🏫 คณะครู</h3>
+        <p>ข้อมูลครูและกลุ่มสาระการเรียนรู้</p>
+      </div>
+      <div class="card card-content">
+        <h3>🤝 บุคลากรสนับสนุน</h3>
+        <p>ข้อมูลฝ่ายสนับสนุนการศึกษา</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-title">
+      <h2>📍 ติดต่อโรงเรียน</h2>
+      <p>ช่องทางการติดต่อและสอบถามข้อมูล</p>
+    </div>
+    <div class="grid">
+      <div class="card card-content">
+        <h3>🏫 ที่อยู่</h3>
+        <p>กรุณาระบุที่อยู่จริงของโรงเรียน</p>
+      </div>
+      <div class="card card-content">
+        <h3>☎️ โทรศัพท์</h3>
+        <p>กรุณาระบุเบอร์โทรศัพท์โรงเรียน</p>
+      </div>
+      <div class="card card-content">
+        <h3>✉️ อีเมล</h3>
+        <p>กรุณาระบุอีเมลโรงเรียน</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="admin">
+  <div class="container">
+    <div class="section-title">
+      <h2>⚙️ ระบบจัดการข่าว</h2>
+      <p>ทดลองเพิ่ม แก้ไข และลบข่าวประชาสัมพันธ์</p>
+    </div>
+    <div class="admin-box">
+      <div class="warning">
+        ⚠️ ระบบจัดการนี้เป็นเวอร์ชันทดลอง
+        ไม่มีระบบล็อกอิน ข้อมูลเก็บเฉพาะในเบราว์เซอร์
+        และไม่แสดงให้ผู้เข้าชมคนอื่นเห็น
+      </div>
+
+      <form id="newsForm">
+        <label for="newsTitle">หัวข้อข่าว</label>
+        <input id="newsTitle" required maxlength="120"
+          placeholder="กรอกหัวข้อข่าว">
+
+        <label for="newsDetail">รายละเอียดข่าว</label>
+        <textarea id="newsDetail" required maxlength="3000"
+          placeholder="กรอกรายละเอียดข่าว"></textarea>
+
+        <button class="btn" type="submit">+ เพิ่มข่าว</button>
+      </form>
+
+      <h3>รายการข่าวทั้งหมด</h3>
+      <div id="adminList"></div>
+
+      <p>
+        <button class="btn" id="exportBtn" type="button">
+          สำรองข้อมูล JSON
+        </button>
+      </p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <h3>🏫 โรงเรียนปัญญาธาราวิทยา</h3>
+  <p>สร้างปัญญา พัฒนาความคิด ก้าวทันโลกอนาคต</p>
+  <small>© 2026 โรงเรียนปัญญาธาราวิทยา</small>
+</footer>
+
+<script>
+const STORAGE_KEY = "panyathara_news_v2";
+
+const sampleNews = [
+  {
+    id: "sample1",
+    title: "ยินดีต้อนรับสู่เว็บไซต์โรงเรียน",
+    detail: "ติดตามข่าวสารและประกาศสำคัญของโรงเรียนได้ที่นี่",
+    date: "21/10/2569"
+  },
+  {
+    id: "sample2",
+    title: "ส่งเสริมกิจกรรมการเรียนรู้",
+    detail: "สนับสนุนการเรียนรู้ทั้งในและนอกห้องเรียน",
+    date: "20/10/2569"
+  },
+  {
+    id: "sample3",
+    title: "เทคโนโลยีเพื่อการศึกษา",
+    detail: "ส่งเสริมทักษะดิจิทัลและการเรียนรู้อย่างสร้างสรรค์",
+    date: "19/10/2569"
+  }
+];
+
+function loadNews() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved === null) return sampleNews.map(x => ({...x}));
+    const parsed = JSON.parse(saved);
+    return Array.isArray(parsed) ? parsed : sampleNews.map(x => ({...x}));
+  } catch (error) {
+    return sampleNews.map(x => ({...x}));
+  }
+}
+
+let news = loadNews();
+
+function saveNews() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(news));
+    return true;
+  } catch (error) {
+    alert("ไม่สามารถบันทึกข้อมูลได้");
+    return false;
+  }
+}
+
+function makeElement(tag, className, content) {
+  const element = document.createElement(tag);
+  if (className) element.className = className;
+  if (content !== undefined) element.textContent = content;
+  return element;
+}
+
+function renderNews() {
+  const grid = document.getElementById("newsList");
+  const query = document.getElementById("searchNews")
+    .value.toLowerCase().trim();
+
+  grid.replaceChildren();
+
+  const filtered = news.filter(item =>
+    item.title.toLowerCase().includes(query) ||
+    item.detail.toLowerCase().includes(query)
+  );
+
+  if (!filtered.length) {
+    grid.appendChild(makeElement("p", "", "ไม่พบข่าวที่ค้นหา"));
+  }
+
+  filtered.forEach((item, index) => {
+    const card = makeElement("article", "card");
+    const picture = makeElement(
+      "div", "picture", ["📢", "📚", "💡"][index % 3]
+    );
+    const content = makeElement("div", "card-content");
+
+    content.append(
+      makeElement("span", "tag", "ประชาสัมพันธ์"),
+      makeElement("h3", "", item.title),
+      makeElement("p", "", item.detail),
+      makeElement("small", "", item.date)
+    );
+
+    card.append(picture, content);
+    grid.appendChild(card);
+  });
+}
+
+function renderAdmin() {
+  const list = document.getElementById("adminList");
+  list.replaceChildren();
+
+  news.forEach(item => {
+    const row = makeElement("div", "admin-row");
+    const title = makeElement("strong", "", item.title);
+    const actions = makeElement("div", "actions");
+
+    const edit = makeElement("button", "btn", "แก้ไข");
+    const remove = makeElement("button", "btn btn-red", "ลบ");
+
+    edit.type = "button";
+    remove.type = "button";
+
+    edit.addEventListener("click", () => editNews(item.id));
+    remove.addEventListener("click", () => deleteNews(item.id));
+
+    actions.append(edit, remove);
+    row.append(title, actions);
+    list.appendChild(row);
+  });
+}
+
+function editNews(id) {
+  const item = news.find(n => n.id === id);
+  if (!item) return;
+
+  const title = prompt("แก้ไขหัวข้อข่าว", item.title);
+  if (title === null) return;
+
+  const detail = prompt("แก้ไขรายละเอียดข่าว", item.detail);
+  if (detail === null) return;
+
+  if (!title.trim() || !detail.trim()) {
+    alert("กรุณากรอกข้อมูลให้ครบ");
+    return;
+  }
+
+  item.title = title.trim().slice(0, 120);
+  item.detail = detail.trim().slice(0, 3000);
+
+  if (saveNews()) {
+    renderNews();
+    renderAdmin();
+  }
+}
+
+function deleteNews(id) {
+  if (!confirm("คุณต้องการลบข่าวนี้ใช่หรือไม่?")) return;
+
+  news = news.filter(item => item.id !== id);
+
+  if (saveNews()) {
+    renderNews();
+    renderAdmin();
+  }
+}
+
+document.getElementById("newsForm")
+  .addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const title = document.getElementById("newsTitle").value.trim();
+    const detail = document.getElementById("newsDetail").value.trim();
+
+    if (!title || !detail) return;
+
+    news.unshift({
+      id: String(Date.now()) + Math.random().toString(36).slice(2),
+      title,
+      detail,
+      date: new Date().toLocaleDateString("th-TH")
+    });
+
+    if (saveNews()) {
+      this.reset();
+      renderNews();
+      renderAdmin();
+      alert("เพิ่มข่าวสำเร็จในเบราว์เซอร์นี้");
+    }
+  });
+
+document.getElementById("searchNews")
+  .addEventListener("input", renderNews);
+
+document.getElementById("exportBtn")
+  .addEventListener("click", function() {
+    const blob = new Blob(
+      [JSON.stringify(news, null, 2)],
+      {type: "application/json"}
+    );
+
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = "school-news-backup.json";
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+
+renderNews();
+renderAdmin();
+</script>
+
+</body>
+</html>
